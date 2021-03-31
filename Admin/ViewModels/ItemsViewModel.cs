@@ -33,6 +33,15 @@ namespace Admin.ViewModels
             return true;
         }
 
+        protected virtual async Task OnEdit()
+        {
+
+        }
+        protected virtual async Task OnAdd()
+        {
+
+        }
+
         protected ItemsViewModel(PageService pageservice, 
             AllDbContext dbContext, 
             Services.FieldsGenerator fieldsGenerator,
@@ -91,6 +100,7 @@ namespace Admin.ViewModels
         {
             dbContext.Set<T>().Add(item);
             await dbContext.SaveChangesAsync();
+            await OnAdd();
         }
 
 
@@ -102,6 +112,7 @@ namespace Admin.ViewModels
             cloneItems.Clone(item, copy);
             dbContext.Entry<T>(copy).State = EntityState.Modified;
             await dbContext.SaveChangesAsync();
+            await OnEdit();
         }
 
         public ICommand RemoveCommand => new CommandAsync( async x =>

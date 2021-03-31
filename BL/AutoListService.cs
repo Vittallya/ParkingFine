@@ -22,7 +22,9 @@ namespace BL
 
         public async Task<IEnumerable<Evacuation>> GetEvacuations(string input = null)
         {
-            await dbContext.Evacuations.Include(x => x.Auto).LoadAsync();
+            await dbContext.Autos.LoadAsync();            
+            await dbContext.Evacuations.LoadAsync();
+            
 
             var active = dbContext.Evacuations.
                 Where(x => x.CarStatus == CarStatus.AtParking);
@@ -32,9 +34,9 @@ namespace BL
                 return active;
             }
 
-            return active.Where(x => x.Auto.GovNumber.StartsWith(input) ||
-               x.Auto.Mark.StartsWith(input) ||
-               x.Auto.Model.StartsWith(input));
+            return active.Where(x => x.Auto.GovNumber.Contains(input) ||
+               x.Auto.Mark.Contains(input) ||
+               x.Auto.Model.Contains(input));
         }
 
         public void SetCar(Evacuation auto)

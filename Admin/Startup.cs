@@ -15,6 +15,8 @@ namespace Admin
             services.AddTransient<BL.DbContextLoader>();
             services.AddTransient<Services.CloneItemsSerivce>();
             services.AddSingleton<Services.FieldsGenerator>();
+            services.AddSingleton<BL.ClientPipeHanlder>();
+            services.AddSingleton<BL.ServerPipeHandler>();
         }
     }
 }

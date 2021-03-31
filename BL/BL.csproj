@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoListService.cs" />
+    <Compile Include="ClientPipeHanlder.cs" />
     <Compile Include="DbContextLoader.cs" />
     <Compile Include="DeclarationService.cs" />
     <Compile Include="Interfaces\IAutoListService.cs" />
@@ -67,8 +68,11 @@
     <Compile Include="CurrentUserService.cs" />
     <Compile Include="LoginService.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
+    <Compile Include="Pipes\Import.cs" />
+    <Compile Include="Pipes\Types.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Client\UserRegisterService.cs" />
+    <Compile Include="ServerPipeHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

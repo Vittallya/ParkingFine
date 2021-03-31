@@ -19,6 +19,7 @@ namespace Main
             services.AddTransient<ILoginService, LoginService>();
             services.AddSingleton<IUserRegisterService, UserRegisterService>();
             services.AddSingleton<IDeclarationService, DeclarationService>();
+            services.AddSingleton<ClientPipeHanlder>();
         }
     }
 }

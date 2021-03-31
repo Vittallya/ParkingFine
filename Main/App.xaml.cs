@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using MVVM_Core;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Main
 {
@@ -21,6 +22,12 @@ namespace Main
 
             Locator.InitServices(provider);
             base.OnStartup(e);
+        }
+        protected override void OnExit(ExitEventArgs e)
+        {
+            var disp = Locator.Services.GetRequiredService<BL.ClientPipeHanlder>();
+            disp.Dispose();
+            base.OnExit(e);
         }
     }
 }

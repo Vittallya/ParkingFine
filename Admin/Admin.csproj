@@ -74,6 +74,7 @@
     </ApplicationDefinition>
     <Compile Include="Components\BindingComponent.cs" />
     <Compile Include="Components\PropertyField.cs" />
+    <Compile Include="Events\UpdatePipe.cs" />
     <Compile Include="Pages\ItemDetailPage.xaml.cs">
       <DependentUpon>ItemDetailPage.xaml</DependentUpon>
     </Compile>

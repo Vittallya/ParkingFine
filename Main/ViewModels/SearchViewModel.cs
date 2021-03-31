@@ -15,22 +15,42 @@ namespace Main.ViewModels
         private readonly EventBus eventBus;
         private readonly IAutoListService listService;
         private readonly PageService pageService;
+        private readonly DbContextLoader dbContextLoader;
         private string searchText;
 
         public bool IsListViewVisible { get; set; }
 
         public bool AnimationVisible { get; set; }
 
-        public SearchViewModel(EventBus eventBus, IAutoListService listService, PageService pageService)
+        public SearchViewModel(EventBus eventBus, 
+            IAutoListService listService, 
+            PageService pageService, DbContextLoader dbContextLoader)
         {
             this.eventBus = eventBus;
             this.listService = listService;
             this.pageService = pageService;
-            Reload();
+            this.dbContextLoader = dbContextLoader;
+            eventBus.Subscribe<Events.DataUpdated, SearchViewModel>(Updated, false);
+            Init();
 
         }
-        
 
+        private async void Init()
+        {
+            await Reload(searchText);
+        }
+
+        async Task Updated(Events.DataUpdated data)
+        {
+            IsLoading = true;
+            dbContextLoader.DisposeConnection();            
+            await Task.Delay(250);
+            await dbContextLoader.LoadAsync();
+            await Reload(SearchText);
+        }
+
+
+        public bool IsLoading { get; set; } = true;
 
         public ObservableCollection<AutoItem> Autos { get; set; }
 
@@ -44,7 +64,7 @@ namespace Main.ViewModels
 
                     searchText = value;
                     OnPropertyChanged();
-                    Reload(value);
+                    Init();
                 }
 
             }
@@ -54,10 +74,13 @@ namespace Main.ViewModels
 
         public bool Selected => SelectedItem != null;
 
-        async void Reload(string text = null)
+
+
+        async Task Reload(string text = null)
         {
             Autos = new ObservableCollection<AutoItem>(
             (await listService.GetEvacuations(text)).Select(x => new AutoItem(x)));
+            IsLoading = false;
         }
 
         public ICommand SelectCar => new Command(x => 

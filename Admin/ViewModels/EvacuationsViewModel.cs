@@ -1,4 +1,5 @@
 ﻿using Admin.Components;
+using Admin.Events;
 using Admin.Services;
 using DAL;
 using DAL.Models;
@@ -13,10 +14,12 @@ namespace Admin.ViewModels
 {
     public class EvacuationsViewModel : ItemsViewModel<Evacuation>
     {
+        private readonly EventBus eventBus;
+
         public EvacuationsViewModel(PageService pageservice, AllDbContext dbContext, 
-            FieldsGenerator fieldsGenerator, CloneItemsSerivce cloneItems) : base(pageservice, dbContext, fieldsGenerator, cloneItems)
+            FieldsGenerator fieldsGenerator, CloneItemsSerivce cloneItems, EventBus eventBus) : base(pageservice, dbContext, fieldsGenerator, cloneItems)
         {
-            
+            this.eventBus = eventBus;
         }
 
 
@@ -46,5 +49,14 @@ namespace Admin.ViewModels
             return res;
         }
 
+        protected async override Task OnAdd()
+        {
+            await eventBus.Publish(new UpdatePipe());
+        }
+
+        protected async override Task OnEdit()
+        {
+            await eventBus.Publish(new UpdatePipe());
+        }
     }
 }

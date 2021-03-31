@@ -15,12 +15,17 @@ namespace Main.ViewModels
     {
         private readonly PageService pageService;
         private readonly DbContextLoader contextLoader;
+        private readonly ClientPipeHanlder pipeHanlder;
+        private readonly EventBus eventBus;
 
-        public MainViewModel(PageService pageService, DbContextLoader contextLoader)
+        public MainViewModel(PageService pageService, DbContextLoader contextLoader, ClientPipeHanlder pipeHanlder, EventBus eventBus)
         {
             this.pageService = pageService;
             this.contextLoader = contextLoader;
+            this.pipeHanlder = pipeHanlder;
+            this.eventBus = eventBus;
             pageService.PageChanged += PageService_PageChanged;
+            
 
             Init();
         }
@@ -29,6 +34,8 @@ namespace Main.ViewModels
 
         async void Init()
         {
+            pipeHanlder.Init();
+            pipeHanlder.UpdateCalled += PipeHanlder_UpdateCalled;
             try
             {
                 await contextLoader.LoadAsync();
@@ -41,6 +48,12 @@ namespace Main.ViewModels
             }
             
         }
+
+        private async void PipeHanlder_UpdateCalled()
+        {
+            await eventBus.Publish(new Events.DataUpdated());
+        }
+
         public bool IsLoaded { get; set; }
 
         public int Width { get; set; } = 800;

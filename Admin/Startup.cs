@@ -13,6 +13,7 @@ namespace Admin
         {
             services.AddTransient<DAL.AllDbContext>();
             services.AddTransient<BL.DbContextLoader>();
+            services.AddTransient<Services.CloneItemsSerivce>();
             services.AddSingleton<Services.FieldsGenerator>();
         }
     }

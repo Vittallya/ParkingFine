@@ -14,6 +14,7 @@ using System.Windows;
 using Admin.Services;
 using System.Data.Entity;
 using Admin.Components;
+using System.Reflection;
 
 namespace Admin.ViewModels
 {
@@ -22,17 +23,25 @@ namespace Admin.ViewModels
         protected readonly PageService pageservice;
         protected readonly AllDbContext dbContext;
         protected readonly FieldsGenerator fieldsGenerator;
+        protected readonly CloneItemsSerivce cloneItems;
+
+        PropertyInfo idProp = typeof(T).GetProperty("Id");
+
 
         public virtual async Task<bool> CheckBeforeAdd(T item)
         {
             return true;
         }
 
-        protected ItemsViewModel(PageService pageservice, AllDbContext dbContext, Services.FieldsGenerator fieldsGenerator) : base(pageservice)
+        protected ItemsViewModel(PageService pageservice, 
+            AllDbContext dbContext, 
+            Services.FieldsGenerator fieldsGenerator,
+            CloneItemsSerivce cloneItems) : base(pageservice)
         {
             this.pageservice = pageservice;
             this.dbContext = dbContext;
             this.fieldsGenerator = fieldsGenerator;
+            this.cloneItems = cloneItems;
             Init();
 
             
@@ -47,13 +56,13 @@ namespace Admin.ViewModels
                 await FromDetailsPage(fieldsGenerator.IsEdit, fieldsGenerator.Item as T);
                 fieldsGenerator.Clear();
             }
-            await LoadItemsNew();
+            await LoadItems();
 
         }
 
         private void GenerateBindingVIew()
         {
-            var list = BindingList1.
+            var list = BindingList.
                 Where(x => x.PropertyType != PropertyType.OuterPropertyIdNonVisible).
                 ToList();
 
@@ -85,12 +94,20 @@ namespace Admin.ViewModels
         }
 
 
-        public abstract Task Edit(T item);
+        protected virtual async Task Edit(T item)
+        {
+            var id = idProp.GetValue(item);
+            T copy = await dbContext.Set<T>().FindAsync(id);
+
+            cloneItems.Clone(item, copy);
+            dbContext.Entry<T>(copy).State = EntityState.Modified;
+            await dbContext.SaveChangesAsync();
+        }
 
         public ICommand RemoveCommand => new CommandAsync( async x =>
         {
             await Remove(SelectedItem);
-            await LoadItemsNew();
+            await LoadItems();
 
         }, x => SelectedItem != null);
 
@@ -105,17 +122,17 @@ namespace Admin.ViewModels
         });
         public ICommand UpdateCommand => new CommandAsync(async x =>
         {
-            await LoadItemsNew();
+            await LoadItems();
 
         });
 
-        async Task LoadItemsNew()
+        protected virtual async Task LoadItems()
         {
             await dbContext.Set<T>().LoadAsync();
             Items = new ObservableCollection<T>(dbContext.Set<T>());
         }
 
-        async Task FromDetailsPage(bool isEdit, T item)
+        protected virtual async Task FromDetailsPage(bool isEdit, T item)
         {
             if (isEdit)
             {
@@ -127,21 +144,20 @@ namespace Admin.ViewModels
             }
         }
 
-        async void ToDetailsPage(bool isEdit)
+        protected virtual async void ToDetailsPage(bool isEdit)
         {
             T item = isEdit ? SelectedItem : new T();
 
-            await fieldsGenerator.Generate(item, BindingList1, isEdit);
+            await fieldsGenerator.Generate(item, BindingList, isEdit);
             Locator.SetDetailsViewModel<T>();
             pageservice.ChangePage<Pages.ItemDetailPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
         }
 
-        public abstract Dictionary<string, string> BindingList { get; }
 
         public GridView GridView { get; set; } = new GridView();
 
         public StackPanel StackPanel { get; set; } = new StackPanel();
 
-        public abstract BindingComponent[] BindingList1 { get; }
+        public abstract BindingComponent[] BindingList { get; }
     }
 }

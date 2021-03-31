@@ -15,8 +15,7 @@ namespace Admin.ViewModels
         ICommand EditCommand { get; }
         ICommand AddCommand { get; }
         ICommand UpdateCommand { get; }
-        Dictionary<string, string> BindingList { get; }
-        Components.BindingComponent[] BindingList1 { get; }
+        Components.BindingComponent[] BindingList { get; }
         GridView GridView { get; set; }
 
         StackPanel StackPanel { get; }

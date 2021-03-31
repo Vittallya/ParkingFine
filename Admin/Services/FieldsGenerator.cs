@@ -88,6 +88,29 @@ namespace Admin.Services
                 control.SetBinding(DatePicker.SelectedDateProperty, info.Name);
             }
 
+            if (info.PropertyType.IsEnum)
+            {
+                var list = Enum.GetNames(info.PropertyType);
+                control = new ComboBox();
+
+                if (list.Length > 0)
+                {
+                    (control as ComboBox).ItemsSource = list;
+                    (control as ComboBox).SetBinding(ComboBox.SelectedItemProperty, bind.PropertyName);
+
+                    if (!IsEdit)
+                    {
+                        (control as ComboBox).SelectedIndex = 0;
+                        info.SetValue(Item, Enum.Parse(info.PropertyType, (control as ComboBox).SelectedItem.ToString()));
+                    }
+                    else
+                    {
+                        var value = info.GetValue(Item);
+                        (control as ComboBox).SelectedItem = Enum.GetName(info.PropertyType, value);
+                    }
+                }
+            }
+
             if(bind.PropertyType == PropertyType.OuterPropertyId || 
                 bind.PropertyType == PropertyType.OuterPropertyIdNonVisible)
             {
@@ -113,11 +136,6 @@ namespace Admin.Services
                     {                        
                         (control as ComboBox).SelectedIndex = 0;
                         info.SetValue(Item, (control as ComboBox).SelectedValue);
-                    }
-                    else
-                    {
-                        var id = info.GetValue(Item);
-                        (control as ComboBox).SelectedValue = id;
                     }
                 }
             }

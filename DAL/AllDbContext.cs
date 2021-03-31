@@ -9,7 +9,7 @@ namespace DAL
     {        
 
 
-        public AllDbContext():base("ParkingFine12")
+        public AllDbContext():base("ParkingFine")
         {
             
         }

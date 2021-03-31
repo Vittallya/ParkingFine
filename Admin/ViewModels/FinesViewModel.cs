@@ -10,26 +10,17 @@ namespace Admin.ViewModels
 {
     public class FinesViewModel : ItemsViewModel<Fine>
     {
-        public FinesViewModel(PageService pageservice, AllDbContext dbContext, FieldsGenerator fieldsGenerator) : 
-            base(pageservice, dbContext, fieldsGenerator)
+        public FinesViewModel(PageService pageservice, AllDbContext dbContext, FieldsGenerator fieldsGenerator, CloneItemsSerivce cloneItems) : 
+            base(pageservice, dbContext, fieldsGenerator, cloneItems)
         {
         }
 
-        public override Dictionary<string, string> BindingList { get; } = new Dictionary<string, string>
-        {
-            {"Name", "Название" },
-            {"Cost", "Стоимость" },
-        };
-        public override BindingComponent[] BindingList1 { get; } = new BindingComponent[]
+
+        public override BindingComponent[] BindingList { get; } = new BindingComponent[]
        {
-            new BindingComponent("Name", "Дата Название"),
+            new BindingComponent("Name", "Название"),
             new BindingComponent("Cost", "Стоимость"),
        };
-
-        public override Task Edit(Fine item)
-        {
-            throw new System.NotImplementedException();
-        }
 
     }
 }

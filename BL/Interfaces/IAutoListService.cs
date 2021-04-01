@@ -12,6 +12,9 @@ namespace BL
     {
         Task<IEnumerable<Evacuation>> GetEvacuations(string input = null);
         void SetCar(Evacuation auto);
+
+        Task Reload();
+
         Evacuation SelectedEvac { get; }
     }
 }

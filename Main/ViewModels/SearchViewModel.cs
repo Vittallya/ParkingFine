@@ -30,7 +30,7 @@ namespace Main.ViewModels
             this.listService = listService;
             this.pageService = pageService;
             this.dbContextLoader = dbContextLoader;
-            eventBus.Subscribe<Events.DataUpdated, SearchViewModel>(Updated, false);
+            eventBus.Subscribe<Events.DataUpdated<Evacuation>, SearchViewModel>(Updated, false);
             Init();
 
         }
@@ -40,12 +40,12 @@ namespace Main.ViewModels
             await Reload(searchText);
         }
 
-        async Task Updated(Events.DataUpdated data)
+        async Task Updated(Events.DataUpdated<Evacuation> data)
         {
             IsLoading = true;
-            dbContextLoader.DisposeConnection();            
+
+            await listService.Reload();
             await Task.Delay(250);
-            await dbContextLoader.LoadAsync();
             await Reload(SearchText);
         }
 

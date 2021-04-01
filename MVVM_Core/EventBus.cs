@@ -35,10 +35,24 @@ namespace MVVM_Core
 
         public async Task Publish<T>(T message) where T: IEvent
         {
-            var messType = typeof(T);
+            var messType = message.GetType();
 
-            var subs = subscribers
-                .Where(x => x.Key.MesType == messType);
+            bool hasGeneric = messType.IsGenericType;
+
+            Type genericType = messType.GetGenericArguments()[0];
+
+            var subs = subscribers.AsEnumerable();
+
+            if (hasGeneric)
+            {
+                subs = subscribers.
+                    Where(x => x.Key.MesType == messType && x.Key.HasGenericType && x.Key.GenericType == genericType);
+            }
+            else
+            {
+               subs = subscribers.Where(x => !x.Key.HasGenericType && x.Key.MesType == messType);
+            }
+
 
             var tasks = subs
                 .Select(y => y.Value(message));

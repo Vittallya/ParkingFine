@@ -14,7 +14,7 @@ namespace BL
         private Thread thread;
         private int recieverHandler;
 
-        public event Action UpdateCalled;
+        public event Action<string> UpdateCalled;
 
         public void Init()
         {
@@ -40,14 +40,17 @@ namespace BL
                     0,
                     0);
 
-                byte[] buff = new byte[1];
+                byte[] buff = new byte[64];
                 uint bytesToRead = 0;
 
                 if (Import.ReadFile(recieverHandler, buff, Convert.ToUInt32(buff.Length), ref bytesToRead, 0))         // выполняем запись последовательности байт в канал                
                 {
-                    if (buff[0] == 1)
+                    if (bytesToRead > 1)
                     {
-                        UpdateCalled?.Invoke();
+                        string message = Encoding.Unicode.GetString(buff);
+                        string cutted = message.Substring(0, (int)(bytesToRead / 2));
+
+                        UpdateCalled?.Invoke(cutted);
                     }
                 }
                 if (Import.CloseHandle(recieverHandler))

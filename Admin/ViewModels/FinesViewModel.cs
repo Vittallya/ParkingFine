@@ -10,8 +10,12 @@ namespace Admin.ViewModels
 {
     public class FinesViewModel : ItemsViewModel<Fine>
     {
-        public FinesViewModel(PageService pageservice, AllDbContext dbContext, FieldsGenerator fieldsGenerator, CloneItemsSerivce cloneItems) : 
-            base(pageservice, dbContext, fieldsGenerator, cloneItems)
+        public FinesViewModel(PageService pageservice, 
+            AllDbContext dbContext, 
+            FieldsGenerator fieldsGenerator, 
+            CloneItemsSerivce cloneItems,
+            EventBus eventBus) : 
+            base(pageservice, dbContext, fieldsGenerator, cloneItems, eventBus)
         {
         }
 

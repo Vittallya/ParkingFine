@@ -7,6 +7,7 @@ using MVVM_Core;
 using System.Threading.Tasks;
 using DAL;
 using System;
+using Main.Services;
 
 namespace Main.ViewModels
 {
@@ -17,13 +18,19 @@ namespace Main.ViewModels
         private readonly DbContextLoader contextLoader;
         private readonly ClientPipeHanlder pipeHanlder;
         private readonly EventBus eventBus;
+        private readonly UpdateHandlerService handlerService;
 
-        public MainViewModel(PageService pageService, DbContextLoader contextLoader, ClientPipeHanlder pipeHanlder, EventBus eventBus)
+        public MainViewModel(PageService pageService, 
+            DbContextLoader contextLoader, 
+            ClientPipeHanlder pipeHanlder, 
+            EventBus eventBus,
+            Services.UpdateHandlerService handlerService)
         {
             this.pageService = pageService;
             this.contextLoader = contextLoader;
             this.pipeHanlder = pipeHanlder;
             this.eventBus = eventBus;
+            this.handlerService = handlerService;
             pageService.PageChanged += PageService_PageChanged;
             
 
@@ -49,9 +56,9 @@ namespace Main.ViewModels
             
         }
 
-        private async void PipeHanlder_UpdateCalled()
+        private void PipeHanlder_UpdateCalled(string msg)
         {
-            await eventBus.Publish(new Events.DataUpdated());
+            handlerService.Handle(msg);
         }
 
         public bool IsLoaded { get; set; }

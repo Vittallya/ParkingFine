@@ -41,9 +41,12 @@ namespace BL
             t.Start();
         }
 
-        public void Send()
+        byte[] _message;
+
+        public void Send(string message)
         {
             sendCalled = true;
+            _message = Encoding.Unicode.GetBytes(message);
         }
 
         void Sender()
@@ -56,7 +59,7 @@ namespace BL
 
                     if (sendCalled)
                     {
-                        buffWrite = new byte[] { 1 };
+                        buffWrite = _message;
                         sendCalled = false;
                     }
 

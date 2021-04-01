@@ -10,7 +10,10 @@ namespace Admin.ViewModels
 {
     public class ParkingViewModel : ItemsViewModel<DAL.Models.Parking>
     {
-        public ParkingViewModel(PageService pageservice, AllDbContext dbContext, FieldsGenerator fieldsGenerator, CloneItemsSerivce cloneItems) : base(pageservice, dbContext, fieldsGenerator, cloneItems)
+        public ParkingViewModel(PageService pageservice, 
+            AllDbContext dbContext, 
+            FieldsGenerator fieldsGenerator, 
+            CloneItemsSerivce cloneItems, EventBus eventBus) : base(pageservice, dbContext, fieldsGenerator, cloneItems, eventBus)
         {
         }
 

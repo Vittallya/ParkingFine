@@ -79,7 +79,7 @@ namespace Admin.ViewModels
 
         async Task Update(Events.UpdatePipe updatePipe)
         {
-            serverPipeHandler.Send();
+            serverPipeHandler.Send(updatePipe.GetString());
         }
 
         async void init()

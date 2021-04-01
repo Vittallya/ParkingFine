@@ -13,8 +13,12 @@ namespace Admin.ViewModels
 {
     public class AutosViewModel : ItemsViewModel<Auto>
     {
-        public AutosViewModel(PageService pageservice, DAL.AllDbContext context, Services.FieldsGenerator fieldsGenerator, Services.CloneItemsSerivce cloneItems) 
-            : base(pageservice, context, fieldsGenerator, cloneItems)
+        public AutosViewModel(PageService pageservice, 
+            DAL.AllDbContext context, 
+            Services.FieldsGenerator fieldsGenerator, 
+            Services.CloneItemsSerivce cloneItems,
+            EventBus eventBus) 
+            : base(pageservice, context, fieldsGenerator, cloneItems, eventBus)
         {
         }
 

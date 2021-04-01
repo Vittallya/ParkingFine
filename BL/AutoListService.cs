@@ -6,12 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL;
 using System.Data.Entity;
+using System.Data.SqlClient;
 
 namespace BL
 {
     public class AutoListService : IAutoListService
     {
         private readonly AllDbContext dbContext;
+
+        private IQueryable<Evacuation> _evacs;
 
         public AutoListService(AllDbContext dbContext)
         {
@@ -20,21 +23,26 @@ namespace BL
 
         public Evacuation SelectedEvac { get; private set; }
 
+        public async Task Reload()
+        {
+            await dbContext.Evacuations.LoadAsync();
+            _evacs = dbContext.Evacuations.Where(x => x.CarStatus == CarStatus.AtParking).AsNoTracking();
+        }
+
         public async Task<IEnumerable<Evacuation>> GetEvacuations(string input = null)
         {
-            await dbContext.Autos.LoadAsync();            
-            await dbContext.Evacuations.LoadAsync();
+            if(_evacs == null)
+            {
+                await Reload();
+            }
             
-
-            var active = dbContext.Evacuations.
-                Where(x => x.CarStatus == CarStatus.AtParking);
 
             if(input == null || input.Length == 0)
             {
-                return active;
+                return _evacs;
             }
 
-            return active.Where(x => x.Auto.GovNumber.Contains(input) ||
+            return _evacs.Where(x => x.Auto.GovNumber.Contains(input) ||
                x.Auto.Mark.Contains(input) ||
                x.Auto.Model.Contains(input));
         }

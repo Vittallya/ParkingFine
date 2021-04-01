@@ -15,6 +15,7 @@ using Admin.Services;
 using System.Data.Entity;
 using Admin.Components;
 using System.Reflection;
+using Admin.Events;
 
 namespace Admin.ViewModels
 {
@@ -24,7 +25,7 @@ namespace Admin.ViewModels
         protected readonly AllDbContext dbContext;
         protected readonly FieldsGenerator fieldsGenerator;
         protected readonly CloneItemsSerivce cloneItems;
-
+        protected readonly EventBus eventBus;
         PropertyInfo idProp = typeof(T).GetProperty("Id");
 
 
@@ -45,12 +46,13 @@ namespace Admin.ViewModels
         protected ItemsViewModel(PageService pageservice, 
             AllDbContext dbContext, 
             Services.FieldsGenerator fieldsGenerator,
-            CloneItemsSerivce cloneItems) : base(pageservice)
+            CloneItemsSerivce cloneItems, EventBus eventBus) : base(pageservice)
         {
             this.pageservice = pageservice;
             this.dbContext = dbContext;
             this.fieldsGenerator = fieldsGenerator;
             this.cloneItems = cloneItems;
+            this.eventBus = eventBus;
             Init();
 
             
@@ -95,16 +97,16 @@ namespace Admin.ViewModels
         {
             dbContext.Set<T>().Remove(item);
             await dbContext.SaveChangesAsync();
+            await OnDbChanged();
         }
         public async Task Add(T item)
         {
             dbContext.Set<T>().Add(item);
             await dbContext.SaveChangesAsync();
             await OnAdd();
+            await OnDbChanged();
         }
-
-
-        protected virtual async Task Edit(T item)
+        protected async Task Edit(T item)
         {
             var id = idProp.GetValue(item);
             T copy = await dbContext.Set<T>().FindAsync(id);
@@ -113,6 +115,12 @@ namespace Admin.ViewModels
             dbContext.Entry<T>(copy).State = EntityState.Modified;
             await dbContext.SaveChangesAsync();
             await OnEdit();
+            await OnDbChanged(id);
+        }
+
+        protected virtual async Task OnDbChanged(object id = null)
+        {
+            await eventBus.Publish(new UpdatePipe(typeof(T), id));
         }
 
         public ICommand RemoveCommand => new CommandAsync( async x =>

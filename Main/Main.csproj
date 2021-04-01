@@ -135,6 +135,7 @@
     <Compile Include="Resources\Converters\Converters.cs" />
     <Compile Include="Rules\PageBranches.cs" />
     <Compile Include="Rules\Statics.cs" />
+    <Compile Include="Services\UpdateHandlerService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ClientResultViewModel.cs" />
     <Compile Include="Components\NotificationItem.cs" />

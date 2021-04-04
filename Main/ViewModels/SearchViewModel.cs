@@ -17,30 +17,25 @@ namespace Main.ViewModels
         private readonly PageService pageService;
         private readonly DbContextLoader dbContextLoader;
         private string searchText;
-
         public bool IsListViewVisible { get; set; }
-
         public bool AnimationVisible { get; set; }
-
-        public SearchViewModel(EventBus eventBus, 
-            IAutoListService listService, 
-            PageService pageService, DbContextLoader dbContextLoader)
+        public SearchViewModel(EventBus eventBus, IAutoListService listService, PageService pageService, DbContextLoader dbContextLoader)
         {
             this.eventBus = eventBus;
             this.listService = listService;
             this.pageService = pageService;
             this.dbContextLoader = dbContextLoader;
             eventBus.Subscribe<Events.DataUpdated<Evacuation>, SearchViewModel>(Updated, false);
+            eventBus.Subscribe<Events.DataUpdated<Declaration>, SearchViewModel>(Updated, false);
             Init();
 
         }
-
         private async void Init()
         {
             await Reload(searchText);
         }
 
-        async Task Updated(Events.DataUpdated<Evacuation> data)
+        async Task Updated()
         {
             IsLoading = true;
 
@@ -49,11 +44,17 @@ namespace Main.ViewModels
             await Reload(SearchText);
         }
 
+        async Task Updated(Events.DataUpdated<Evacuation> data)
+        {
+            await Updated();
+        }
+        async Task Updated(Events.DataUpdated<Declaration> data)
+        {
+            await Updated();
+        }
 
         public bool IsLoading { get; set; } = true;
-
         public ObservableCollection<AutoItem> Autos { get; set; }
-
         public string SearchText { 
             get => searchText;
             set
@@ -69,20 +70,14 @@ namespace Main.ViewModels
 
             }
         }
-
         public AutoItem SelectedItem { get; set; }
-
         public bool Selected => SelectedItem != null;
-
-
-
         async Task Reload(string text = null)
         {
             Autos = new ObservableCollection<AutoItem>(
             (await listService.GetEvacuations(text)).Select(x => new AutoItem(x)));
             IsLoading = false;
         }
-
         public ICommand SelectCar => new Command(x => 
         {
             listService.SetCar(SelectedItem.Evac);

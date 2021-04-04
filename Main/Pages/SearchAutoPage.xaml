@@ -56,22 +56,21 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
-        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10"  DockPanel.Dock="Top" >
-            <TextBlock Text="Введите гос. номер авто:"
+
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10"  DockPanel.Dock="Top" >
+                <TextBlock Text="Введите гос. номер авто:"
                        FontSize="16"
                   Visibility="{Binding IsListViewVisible, Converter={StaticResource BoolToVisInvert}}"/>
-            <TextBlock FontSize="16" Text="Результаты поиска:"
+                <TextBlock FontSize="16" Text="Результаты поиска:"
                   Visibility="{Binding IsListViewVisible, Converter={StaticResource BoolToVis}}"/>
                 <TextBox 
                     TextChanged="TextBox_TextChanged"
                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Margin="10 0 0 0" Width="150" />
-        </DockPanel>
+            </DockPanel>
 
-
-
-        <ListView ItemsSource="{Binding Autos}"
+            <ListView ItemsSource="{Binding Autos}"
                   Grid.Row="1"
+                  BorderBrush="{x:Null}"
                   VerticalAlignment="Top"
                   Padding="20 5"
                   Visibility="{Binding IsListViewVisible, Converter={StaticResource BoolToVis}}"
@@ -148,17 +147,15 @@
             
         </ListView>
 
+            <Grid  Grid.Row="2" Background="White">
 
-        <Grid  Grid.Row="2" Background="White">
-
-            <Button Padding="20 5"
+                <Button Padding="20 5"
                     Command="{Binding SelectCar}"
                     Margin="0 10"
                     HorizontalAlignment="Center"
                     Visibility="{Binding Selected, Converter={StaticResource BoolToVis}}"
                     Content="Это мой автомобиль"/>
+            </Grid>
         </Grid>
-
-    </Grid>
     </Grid>
 </Page>

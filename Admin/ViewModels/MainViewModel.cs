@@ -70,7 +70,7 @@ namespace Admin.ViewModels
         {
             Locator.SetDataContext<DeclarationsViewModel>();
             pageService.ClearHistoryByPool(1);
-            pageService.ChangePage<Pages.ItemsPage>(1, DisappearAndToSlideAnim.Default);
+            pageService.ChangePage<Pages.DeclarationPage>(1, DisappearAndToSlideAnim.Default);
         });
 
 

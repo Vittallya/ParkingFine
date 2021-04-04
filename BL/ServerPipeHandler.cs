@@ -14,15 +14,16 @@ namespace BL
 
         Thread t;
 
-        bool sendCalled;
         private bool _cont;
 
         public void Dispose()
         {
             _cont = false;
             t?.Abort();
-            if (pipeHandle != -1)
-                Import.CloseHandle(pipeHandle);
+            if(pipeHandle != -1)
+            {
+                Import.DisconnectNamedPipe(pipeHandle);
+            }
         }
 
         public void Init()
@@ -36,6 +37,7 @@ namespace BL
                 1024,
                 Types.NMPWAIT_WAIT_FOREVER,
                 (uint)0);
+
             _cont = true;
             t = new Thread(Sender);
             t.Start();
@@ -45,9 +47,15 @@ namespace BL
 
         public void Send(string message)
         {
-            sendCalled = true;
+            _send = true;
             _message = Encoding.Unicode.GetBytes(message);
         }
+
+        bool _send;
+
+        int temp = 0;
+
+        int count = 1;
 
         void Sender()
         {
@@ -55,20 +63,19 @@ namespace BL
             {
                 if (Import.ConnectNamedPipe(pipeHandle, 0))
                 {
+
                     byte[] buffWrite = new byte[] { 0 };
-
-                    if (sendCalled)
-                    {
-                        buffWrite = _message;
-                        sendCalled = false;
-                    }
-
                     uint realBytesWrited = 0;
 
+                    if (_send)
+                    {
+                        buffWrite = _message;
+                        _send = false;
+                    }
+
+
                     Import.WriteFile(pipeHandle, buffWrite, (uint)buffWrite.Length, ref realBytesWrited, 0);
-
-
-                    Import.DisconnectNamedPipe(pipeHandle);                             // отключаемся от канала клиента 
+                    Import.DisconnectNamedPipe(pipeHandle);
 
                     // приостанавливаем работу потока перед тем, как приcтупить к обслуживанию очередного клиента
                 }

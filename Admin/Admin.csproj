@@ -75,6 +75,9 @@
     <Compile Include="Components\BindingComponent.cs" />
     <Compile Include="Components\PropertyField.cs" />
     <Compile Include="Events\UpdatePipe.cs" />
+    <Compile Include="Pages\DeclarationPage.xaml.cs">
+      <DependentUpon>DeclarationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ItemDetailPage.xaml.cs">
       <DependentUpon>ItemDetailPage.xaml</DependentUpon>
     </Compile>
@@ -111,6 +114,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\DeclarationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ItemDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -24,10 +24,24 @@ namespace Main.ViewModels
             bool edit = declarationService.IsEdit;
             bool res = await declarationService.ApplyDeclaration();
 
-            
+            if (declarationService.IsPadied)
+            {
+                Message = "Оплата прошла успешно!";
+            }
+            else if (edit)
+            {
+                Message = "Заявление успешно редактировано!";
+            }
+            else
+            {
+                Message = "Заявление успешно оформлено!";
+            }
 
-            Message = res ? (edit ? "Заявление успешно редактировано!" : "Заявление успешно оформлено!") : 
-                "Произошла ошибка";
+            if(!res)
+            {
+                Message = "Произошла ошибка!";
+            }
+                
 
             pageservice.ClearHistoryByPool(PoolIndex);
             declarationService.Clear();
@@ -35,7 +49,7 @@ namespace Main.ViewModels
 
         public override void Next()
         {
-            pageservice.ChangePage<Pages.SearchAutoPage>(DisappearAndToSlideAnim.ToRight);
+            pageservice.ChangePage<Pages.SearchAutoPage>(PoolIndex, DisappearAndToSlideAnim.ToRight);
         }
 
         

@@ -10,6 +10,8 @@ using System.Collections.Generic;
 
 namespace BL
 {
+
+    
     public class DeclarationService : IDeclarationService
     {
         public const int BEGIN_TIME = 10;
@@ -45,6 +47,8 @@ namespace BL
             profileFromDto = new MapperConfiguration(x => x.CreateMap<ProfileDto, Profile>());
         }
 
+        public string Status { get; private set; }
+
         public bool CanEditDeclaration(Declaration dec)
         {
             throw new System.NotImplementedException();
@@ -57,6 +61,7 @@ namespace BL
             _profile = null;
             _evac = null;
             isEdit = false;
+            IsPadied = false;
         }
 
         public DeclarationDto GetDeclaration()
@@ -191,9 +196,16 @@ namespace BL
             return (int)(ParkingCost + _evac.EvacCost + _evac.Fine.Cost);
         }
 
+        public bool IsPadied { get; private set; }
+
         public void DefineStatus(DecStatus decStatus)
         {
             _currentDec.DecStatus = decStatus;
+
+            if(decStatus == DecStatus.ActivePaid)
+            {
+                IsPadied = true;
+            }
         }
     }
 }

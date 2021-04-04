@@ -29,6 +29,9 @@ namespace BL
 
         private void Reciever()
         {
+            byte[] buffSend = new byte[1] { 1 };
+            uint bytesToWrite = 0;
+
             while (_cont)
             {
                 recieverHandler = Import.CreateFile(

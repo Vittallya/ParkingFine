@@ -46,5 +46,20 @@ namespace Admin.ViewModels
 
             return res;
         }
+
+        public override async Task<bool> CheckBeforeEdit(Evacuation item)
+        {
+            var same = await dbContext.Evacuations.FirstOrDefaultAsync(
+                x => x.AutoId == item.AutoId && x.CarStatus == CarStatus.AtParking);
+
+            bool res = same == null;
+
+            if (!res)
+            {
+                MessageBox.Show($"Данное авто уже есть на стоянке по адр. '{same.Parking?.Address}'");
+            }
+
+            return res;
+        }
     }
 }

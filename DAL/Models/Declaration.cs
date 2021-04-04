@@ -57,7 +57,8 @@ namespace DAL.Models
         /// </summary>
         Completed, 
 
-        DeclayerNotCome
+        DeclayerNotCome,
+        Canceled
     }
 
     public class Declaration

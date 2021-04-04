@@ -28,8 +28,13 @@ namespace Admin.ViewModels
         protected readonly EventBus eventBus;
         PropertyInfo idProp = typeof(T).GetProperty("Id");
 
+        protected bool isCheckBinding = true;
 
         public virtual async Task<bool> CheckBeforeAdd(T item)
+        {
+            return true;
+        }
+        public virtual async Task<bool> CheckBeforeEdit(T item)
         {
             return true;
         }
@@ -60,7 +65,8 @@ namespace Admin.ViewModels
 
         async void Init()
         {
-            GenerateBindingVIew();
+            if(isCheckBinding)
+                GenerateBindingVIew();
 
             if (fieldsGenerator.IsLastDetail)
             {
@@ -71,7 +77,7 @@ namespace Admin.ViewModels
 
         }
 
-        private void GenerateBindingVIew()
+        protected virtual void GenerateBindingVIew()
         {
             var list = BindingList.
                 Where(x => x.PropertyType != PropertyType.OuterPropertyIdNonVisible).
@@ -145,10 +151,20 @@ namespace Admin.ViewModels
 
         });
 
-        protected virtual async Task LoadItems()
+        protected virtual void DefineItems()
+        {
+            Items = new ObservableCollection<T>(dbContext.Set<T>());
+        }
+
+        private async Task LoadItems()
+        {
+            await OnLoadItems();
+            DefineItems();
+        }
+
+        protected virtual async Task OnLoadItems()
         {
             await dbContext.Set<T>().LoadAsync();
-            Items = new ObservableCollection<T>(dbContext.Set<T>());
         }
 
         protected virtual async Task FromDetailsPage(bool isEdit, T item)

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Main.Pages
+namespace Admin.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для AboutPage.xaml
+    /// Логика взаимодействия для DeclarationPage.xaml
     /// </summary>
-    public partial class AboutPage : Page
+    public partial class DeclarationPage : Page
     {
-        public AboutPage()
+        public DeclarationPage()
         {
             InitializeComponent();
         }

@@ -42,10 +42,10 @@ namespace Main.Services
                 var entity = set.Find(id);
                 await allDbContext.Entry(entity).ReloadAsync();
             }
-            else
-            {
-                await set.ForEachAsync(x => allDbContext.Entry(x).Reload());
-            }
+            //else
+            //{
+            //    await set.ForEachAsync(x => allDbContext.Entry(x).Reload());
+            //}
 
             var eventType = typeof(DataUpdated<>).MakeGenericType(type);
 

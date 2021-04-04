@@ -12,10 +12,13 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
         
+
         <TextBlock
             Grid.ColumnSpan="2"
-            Visibility="{Binding LoadingContext, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Загрузка бд..." RenderTransformOrigin="0.5,0.5">
+            Visibility="{Binding LoadingContext, Converter={StaticResource BoolToVis}}"
+            HorizontalAlignment="Center" VerticalAlignment="Center" Text="Загрузка бд..." RenderTransformOrigin="0.5,0.5">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Setter Property="RenderTransform">
@@ -29,7 +32,7 @@
                         <Trigger Property="Visibility" Value="Visible">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
-                                    <Storyboard>
+                                    <Storyboard RepeatBehavior="Forever">
                                         <DoubleAnimation 
                                             Duration="0:1:0"
                                             To="5"
@@ -92,6 +95,5 @@
         </StackPanel>
 
         <Frame NavigationUIVisibility="Hidden" Grid.Column="1" Content="{Binding CurrentPage}"/>
-
     </Grid>
 </Window>

@@ -28,7 +28,7 @@ namespace Main.ViewModels
         private async void init()
         {
             Hours = (int)Math.Round((DateTime.Now - Evac.DateTimeEvac).TotalHours);
-            Points = new string('.', 25);
+            Points = new string('.', 45);
             ParkingCost = Evac.Parking.CostByHour * Hours;
 
             HasActive = await declarationService.SetupEvac(Evac.Id);

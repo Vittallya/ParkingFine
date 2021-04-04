@@ -18,6 +18,7 @@ namespace Admin.ViewModels
         Components.BindingComponent[] BindingList { get; }
         GridView GridView { get; set; }
 
+
         StackPanel StackPanel { get; }
     }
 }

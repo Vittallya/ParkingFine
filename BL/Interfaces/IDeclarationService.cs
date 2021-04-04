@@ -19,7 +19,7 @@ namespace BL
 
         Task<bool> ApplyDeclaration();
 
-
+        bool IsPadied { get; }
 
         /// <summary>
         /// Получить заполненое заявление от VM

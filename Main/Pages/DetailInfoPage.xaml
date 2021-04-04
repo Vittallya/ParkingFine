@@ -19,24 +19,26 @@
         </Grid.RowDefinitions>
 
 
-        <Border 
-            TextBlock.FontSize="14"
+        <ScrollViewer 
+            VerticalAlignment="Top"
+            Grid.Row="1" 
             Grid.ColumnSpan="2"
             Grid.Column="0" 
-            BorderThickness="5"
-            VerticalAlignment="Top"
             HorizontalAlignment="Center"
+            HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Border 
+            
+            TextBlock.FontSize="14"
+            BorderThickness="5"
             CornerRadius="2"
-            Grid.Row="1" 
             BorderBrush="White" Background="White">
 
             <Grid Margin="45 15 45 10" HorizontalAlignment="Center">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="75"/>
-                </Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
                 
                 <StackPanel Grid.Row="0" Grid.Column="0">
 
@@ -106,8 +108,8 @@
                             <Run Text="{Binding Evac.DateTimeEvac, StringFormat='dd.MM.yyyy hh:mm'}"/>
                         </TextBlock>
                     </DockPanel>
-                    
-                    <DockPanel Margin="5 5 0 5">
+
+                    <DockPanel  Margin="5 5 0 5">
                         <TextBlock 
                             Style="{StaticResource TextBlock_H3}"
                             Text="Время нахождения на спец стоянке:" 
@@ -121,7 +123,7 @@
                         </TextBlock>
                     </DockPanel>
 
-                    <DockPanel Margin="5 5 0 5">
+                    <DockPanel  Margin="5 5 0 5">
                         <TextBlock 
                             Style="{StaticResource TextBlock_H3}"
                             Text="Нарушение:" 
@@ -135,59 +137,81 @@
                     </DockPanel>
 
 
-                    <DockPanel Margin="15 5 0 5">
+                        <DockPanel  Margin="5 5 0 5">
+                            <TextBlock 
+                            Style="{StaticResource TextBlock_H3}"
+                            Text="Стоиомсть эвакуации:" 
+                            Width="280"/>
+
+                            <TextBlock 
+                            Style="{StaticResource TextBlock_H3_DemiBold}"
+                            HorizontalAlignment="Left">
+                            <Run Text="{Binding Evac.EvacCost, StringFormat='{}{0}р.'}"/>
+                            </TextBlock>
+                        </DockPanel>
+
+                        <DockPanel  Margin="5 5 0 5">
+                            <TextBlock 
+                            Style="{StaticResource TextBlock_H3}"
+                            Text="Стоиомсть эвакуации TC:" 
+                            Width="280"/>
+
+                            <TextBlock 
+                            Style="{StaticResource TextBlock_H3_DemiBold}"
+                            HorizontalAlignment="Left">
+                            <Run Text="{Binding Evac.EvacCost, StringFormat='{}{0}р.'}"/>
+                            </TextBlock>
+                        </DockPanel>
+
+
+                    <DockPanel  Margin="5 5 0 5">
                         <TextBlock 
                             Width="280"
                             HorizontalAlignment="Left"
                             Style="{StaticResource TextBlock_H3}">
                             
-                            <Run Text="Стоиомость эвакуации ТС" />
-                            <Run Text="{Binding Points}"/>
-                        </TextBlock>
-
-                        <TextBlock 
-                            Style="{StaticResource TextBlock_H3_DemiBold}"
-                            HorizontalAlignment="Left">
-                            <Run Text="{Binding Evac.EvacCost, StringFormat='{}{0}р.'}"/>
-                        </TextBlock>
-                    </DockPanel>
-
-                    <DockPanel Margin="15 5 0 5">
-                        <TextBlock 
-                            HorizontalAlignment="Left"
-                            Style="{StaticResource TextBlock_H3}">
-                            
                             <Run Text="Административный штраф" />
-                            <Run Text="{Binding Points}"/>
-                            
-                            <Run Text="{Binding Evac.Fine.Cost}"/>
-                        </TextBlock>
-
-                    </DockPanel>
-
-                    <DockPanel Margin="15 5 0 5">
+                            </TextBlock>
+                        
                         <TextBlock 
+                        Style="{StaticResource TextBlock_H3_DemiBold}"
+                        HorizontalAlignment="Left">
+                        <Run Text="{Binding Evac.Fine.Cost, StringFormat='{}{0}р.'}"/>
+                        </TextBlock>
+                        </DockPanel>
+
+                    <DockPanel Margin="5 5 0 5">
+                            <TextBlock 
+                            Width="280"
                             HorizontalAlignment="Left"
                             Style="{StaticResource TextBlock_H3}">
-                            
-                            <Run Text="Стоиомсть содержания ТС" />
-                            <Run Text="{Binding Points}"/>
-                            
-                            <Run Text="{Binding ParkingCost}"/>
+                            <Run Text="Стоиомсть содержания ТС" />                 
                         </TextBlock>
 
-                    </DockPanel>
-
-                    <DockPanel Margin="15 5 0 5">
-                        <TextBlock 
+                            <TextBlock 
                             HorizontalAlignment="Left"
+                            Style="{StaticResource TextBlock_H3_DemiBold}">                
+                            <Run Text="{Binding ParkingCost, StringFormat='{}{0}р.'}"/>
+                            </TextBlock>
+
+                        </DockPanel>
+
+                    <DockPanel Margin="5 5 0 5">
+                        <TextBlock 
+                            
+                            HorizontalAlignment="Left"
+                            Width="280"
                             Style="{StaticResource TextBlock_H3}">
                             
                             <Run Text="Итого к оплате:" />
-                            <Run Text="{Binding Points}"/>
-                        </TextBlock>
-
-                    </DockPanel>
+                            </TextBlock>
+                            <TextBlock 
+                            HorizontalAlignment="Left"
+                            FontWeight="DemiBold"
+                            Style="{StaticResource TextBlock_H2}">                
+                            <Run Text="{Binding FullCost, StringFormat='{}{0}р.'}"/>
+                            </TextBlock>
+                        </DockPanel>
 
    
 
@@ -196,10 +220,13 @@
             </Grid>
         </Border>
 
-
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+        </ScrollViewer>
+        <StackPanel 
+            MinWidth="350"
+            Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <Button 
+                Visibility="{Binding HasActive, Converter={StaticResource BoolToVisInvert}}"
                 Command="{Binding NextCommand}"
                 Style="{DynamicResource ButtonNext}"
                 Padding="45 8"
@@ -208,6 +235,16 @@
                 FontSize="14"
                 Content="Оформить заявление на получение ТС" Grid.Column="1"/>
 
+            <Button 
+                Visibility="{Binding HasActive, Converter={StaticResource BoolToVis}}"
+                Command="{Binding NextCommand}"
+                Style="{DynamicResource ButtonNext}"
+                Padding="45 8"
+                Foreground="White"
+                FontWeight="Bold"
+                FontSize="14"
+                Content="К заявлению" Grid.Column="1"/>
+            
             <Button 
                 Margin="0 10"
                 Command="{Binding BackCommand}"
@@ -218,7 +255,7 @@
                 Background="White"
                 Grid.Column="1"
                 Style="{StaticResource ButtonSkip}"
-                Content="Это не мой автомобиль"/>
+                Content="Назад"/>
         </StackPanel>
     </Grid>
 </Page>

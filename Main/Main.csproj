@@ -105,17 +105,11 @@
     <Compile Include="Events\ClientRegistered.cs" />
     <Compile Include="Events\DataUpdated.cs" />
     <Compile Include="Events\OrderCompleted.cs" />
-    <Compile Include="Pages\AboutPage.xaml.cs">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\DeclarationPage.xaml.cs">
       <DependentUpon>DeclarationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\DetailInfoPage.xaml.cs">
       <DependentUpon>DetailInfoPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\EditStylesPage.xaml.cs">
-      <DependentUpon>EditStylesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -160,19 +154,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\AboutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\DeclarationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\DetailInfoPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\EditStylesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

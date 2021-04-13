@@ -89,6 +89,10 @@
     <Compile Include="Migrations\202103241029240_Start3.designer.cs">
       <DependentUpon>202103241029240_Start3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104130828008_fillDb.cs" />
+    <Compile Include="Migrations\202104130828008_fillDb.designer.cs">
+      <DependentUpon>202104130828008_fillDb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Auto.cs" />
     <Compile Include="Models\Declaration.cs" />
@@ -127,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103241029240_Start3.resx">
       <DependentUpon>202103241029240_Start3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104130828008_fillDb.resx">
+      <DependentUpon>202104130828008_fillDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

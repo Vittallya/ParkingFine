@@ -140,19 +140,6 @@
                         <DockPanel  Margin="5 5 0 5">
                             <TextBlock 
                             Style="{StaticResource TextBlock_H3}"
-                            Text="Стоиомсть эвакуации:" 
-                            Width="280"/>
-
-                            <TextBlock 
-                            Style="{StaticResource TextBlock_H3_DemiBold}"
-                            HorizontalAlignment="Left">
-                            <Run Text="{Binding Evac.EvacCost, StringFormat='{}{0}р.'}"/>
-                            </TextBlock>
-                        </DockPanel>
-
-                        <DockPanel  Margin="5 5 0 5">
-                            <TextBlock 
-                            Style="{StaticResource TextBlock_H3}"
                             Text="Стоиомсть эвакуации TC:" 
                             Width="280"/>
 
@@ -228,17 +215,13 @@
             <Button 
                 Visibility="{Binding HasActive, Converter={StaticResource BoolToVisInvert}}"
                 Command="{Binding NextCommand}"
-                Style="{DynamicResource ButtonNext}"
                 Padding="45 8"
-                Foreground="White"
-                FontWeight="Bold"
                 FontSize="14"
                 Content="Оформить заявление на получение ТС" Grid.Column="1"/>
 
             <Button 
                 Visibility="{Binding HasActive, Converter={StaticResource BoolToVis}}"
                 Command="{Binding NextCommand}"
-                Style="{DynamicResource ButtonNext}"
                 Padding="45 8"
                 Foreground="White"
                 FontWeight="Bold"
@@ -251,10 +234,7 @@
                 Grid.Row="2"
                 FontWeight="Bold"
                 Padding="45 8"
-                Foreground="Black"
-                Background="White"
                 Grid.Column="1"
-                Style="{StaticResource ButtonSkip}"
                 Content="Назад"/>
         </StackPanel>
     </Grid>

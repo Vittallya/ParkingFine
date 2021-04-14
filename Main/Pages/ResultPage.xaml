@@ -20,11 +20,8 @@
                 Grid.Row="1"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Style="{DynamicResource ButtonNext}"
                 Padding="45 8"
-                Foreground="White"
-                FontWeight="Bold"
-                FontSize="14"
+                FontSize="16"
                 Content="Завершить" Grid.Column="1"/>
         </StackPanel>
     </Grid>

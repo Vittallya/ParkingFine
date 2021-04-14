@@ -171,6 +171,7 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Padding="45 5"
+            FontSize="16"
             Margin="0 0 25 0"
             Content="Далее" 
             Command="{Binding NextCommand}"/>

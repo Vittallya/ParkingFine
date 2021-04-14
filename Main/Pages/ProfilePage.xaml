@@ -61,6 +61,7 @@
         <Button 
             Grid.ColumnSpan="2"
             Grid.Row="2"
+            FontSize="16"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Padding="45 5"

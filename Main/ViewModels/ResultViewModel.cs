@@ -7,14 +7,12 @@ namespace Main.ViewModels
     public class ResultViewModel : BasePageViewModel
 
     {
-        private readonly PageService pageservice;
         private readonly IDeclarationService declarationService;
 
         public string Message { get; set; }
 
         public ResultViewModel(PageService pageservice, IDeclarationService declarationService) : base(pageservice)
         {
-            this.pageservice = pageservice;
             this.declarationService = declarationService;
             init();
         }
@@ -47,7 +45,7 @@ namespace Main.ViewModels
             declarationService.Clear();
         }
 
-        public override void Next()
+        protected override void Next(object param)
         {
             pageservice.ChangePage<Pages.SearchAutoPage>(PoolIndex, DisappearAndToSlideAnim.ToRight);
         }

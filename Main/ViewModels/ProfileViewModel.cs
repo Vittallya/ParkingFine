@@ -19,9 +19,8 @@ namespace Main.ViewModels
             Profle = declarationService.GetProfile();
         }
 
-        public override void Next()
-        {
-            //Нектороые проверочки
+        protected override void Next(object param)
+        {  //Нектороые проверочки
             declarationService.SetupFilledProfile(Profle);
 
             if (declarationService.GetDeclaration().PayingType == PayingType.Online)

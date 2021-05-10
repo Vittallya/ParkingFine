@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace Main.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для SearchAutoPage.xaml
+    /// Логика взаимодействия для UserRegPage.xaml
     /// </summary>
-    public partial class SearchAutoPage : Page
+    public partial class UserRegPage : Page
     {
-
-        public SearchAutoPage()
+        public UserRegPage()
         {
             InitializeComponent();
-            
         }
     }
 }

@@ -1,0 +1,18 @@
+﻿namespace DAL.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class passw : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.Profiles", "Password", c => c.String());
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.Profiles", "Password");
+        }
+    }
+}

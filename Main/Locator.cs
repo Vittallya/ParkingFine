@@ -25,6 +25,7 @@ namespace Main
         public  ViewModels.ProfileViewModel ProfileViewModel => Services.GetRequiredService<ProfileViewModel>();
         public  ViewModels.PaymentViewModel PaymentViewModel => Services.GetRequiredService<PaymentViewModel>();
         public  ViewModels.ResultViewModel ResultViewModel => Services.GetRequiredService<ResultViewModel>();
+        public  ViewModels.UserRegViewModel UserRegViewModel => Services.GetRequiredService<UserRegViewModel>();
     }
 }
 

@@ -22,5 +22,6 @@ namespace DAL.Models
         public string PasportNumber { get; set; }
         public string PasportSerial { get; set; }
         public string PhoneNumber { get; set; }
+        public string Password { get; set; }
     }
 }

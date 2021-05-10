@@ -93,6 +93,10 @@
     <Compile Include="Migrations\202104130828008_fillDb.designer.cs">
       <DependentUpon>202104130828008_fillDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105101459005_passw.cs" />
+    <Compile Include="Migrations\202105101459005_passw.designer.cs">
+      <DependentUpon>202105101459005_passw.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Auto.cs" />
     <Compile Include="Models\Declaration.cs" />
@@ -134,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104130828008_fillDb.resx">
       <DependentUpon>202104130828008_fillDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105101459005_passw.resx">
+      <DependentUpon>202105101459005_passw.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

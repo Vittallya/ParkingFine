@@ -7,12 +7,10 @@ namespace Main.ViewModels
 {
     public class PaymentViewModel : BasePageViewModel
     {
-        private readonly PageService pageservice;
         private readonly IDeclarationService declarationService;
 
         public PaymentViewModel(PageService pageservice, IDeclarationService declarationService) : base(pageservice)
         {
-            this.pageservice = pageservice;
             this.declarationService = declarationService;
             Cost = declarationService.GetCost();
 
@@ -32,13 +30,13 @@ namespace Main.ViewModels
 
         public double Cost { get; set; }
 
-        public override void Next()
+        protected override void Next(object param)
         {
             ErrorShow = false;
 
             if (CardNum == null || CardNum.Length != 16 || !CardNum.All(char.IsDigit))
             {
-                ShowError("Номер карты должен содержать 16 цифр");    
+                ShowError("Номер карты должен содержать 16 цифр");
                 return;
             }
 
@@ -48,13 +46,13 @@ namespace Main.ViewModels
                 return;
             }
 
-            if (!int.TryParse(Year, out int y) || y < 0 )
+            if (!int.TryParse(Year, out int y) || y < 0)
             {
                 ShowError("Год указан некорректно");
                 return;
             }
 
-            if (Secret == null || Secret.Length != 3 || !Secret.All(char.IsDigit) )
+            if (Secret == null || Secret.Length != 3 || !Secret.All(char.IsDigit))
             {
                 ShowError("Секретный код должен содержать 3 цифры");
                 return;

@@ -11,7 +11,6 @@ namespace Main.ViewModels
 {
     public class DeclarationViewModel : BasePageViewModel
     {
-        private readonly PageService pageservice;
         private readonly IDeclarationService declarationService;
         private DateTime selectedDate;
         private TimeSpan _selectedTime;
@@ -20,7 +19,6 @@ namespace Main.ViewModels
 
         public DeclarationViewModel(PageService pageservice, BL.IDeclarationService declarationService) : base(pageservice)
         {
-            this.pageservice = pageservice;
             this.declarationService = declarationService;
 
             Declaration = declarationService.GetDeclaration();
@@ -32,7 +30,7 @@ namespace Main.ViewModels
         public Dictionary<PayingType, string> PayType { get; set; }
 
         
-        async void init()
+        void init()
         {
             PayType = Rules.Static.PayTypeConvert;
             StartDate = DateTime.Now.AddDays(1);
@@ -41,11 +39,8 @@ namespace Main.ViewModels
 
             
         }
-
-        public override void Next()
+        protected override void Next(object param)
         {
-            //Некоторые проверки...
-
             var time = TimeSpan.Parse(TimeList[SelectedTimeIndex]);
 
             Declaration.ComingDate = SelectedDate.Date.AddHours(time.Hours);
@@ -57,7 +52,7 @@ namespace Main.ViewModels
             }
             else if (declarationService.IsEdit)
             {
-                pageservice.ChangePage<Pages.ResultPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);                
+                pageservice.ChangePage<Pages.ResultPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
             }
             else
             {

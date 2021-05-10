@@ -126,6 +126,9 @@
     <Compile Include="Pages\SearchAutoPage.xaml.cs">
       <DependentUpon>SearchAutoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UserRegPage.xaml.cs">
+      <DependentUpon>UserRegPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Converters\Converters.cs" />
     <Compile Include="Rules\PageBranches.cs" />
     <Compile Include="Rules\Statics.cs" />
@@ -141,6 +144,7 @@
     <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\ResultViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\UserRegViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -179,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\SearchAutoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UserRegPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,6 +251,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Библиотеки\MVVM_Core\MVVM_Core.csproj">
+      <Project>{E2DD1F52-CC8D-4BEA-AB48-7959EC923F2B}</Project>
+      <Name>MVVM_Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BL\BL.csproj">
       <Project>{7b4accac-45ff-4a6e-84fe-b745f382e371}</Project>
       <Name>BL</Name>
@@ -250,10 +262,6 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{1122897e-3df2-4e7a-bc2a-233b007df0ec}</Project>
       <Name>DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MVVM_Core\MVVM_Core.csproj">
-      <Project>{e2dd1f52-cc8d-4bea-ab48-7959ec923f2b}</Project>
-      <Name>MVVM_Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

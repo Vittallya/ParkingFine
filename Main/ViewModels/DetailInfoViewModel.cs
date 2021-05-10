@@ -9,7 +9,6 @@ namespace Main.ViewModels
 {
     public class DetailInfoViewModel : BasePageViewModel
     {
-        private readonly PageService pageservice;
         private readonly IAutoListService listService;
         private readonly IDeclarationService declarationService;
 
@@ -17,7 +16,6 @@ namespace Main.ViewModels
 
         public DetailInfoViewModel(PageService pageservice, BL.IAutoListService listService, IDeclarationService declarationService) : base(pageservice)
         {
-            this.pageservice = pageservice;
             this.listService = listService;
             this.declarationService = declarationService;
             Evac = listService.SelectedEvac;
@@ -35,10 +33,10 @@ namespace Main.ViewModels
             FullCost = declarationService.GetCost();                
         }
 
-        public override void Next()
+        protected override void Next(object param)
         {
             if (HasActive)
-            {                
+            {
                 pageservice.ChangePage<Pages.LoginPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
             }
             else

@@ -22,13 +22,6 @@ namespace BL
 
         private Evacuation _evac;
         private Declaration _currentDec;
-
-        private MapperConfiguration decToDto;
-        private MapperConfiguration profileToDto;
-
-        private MapperConfiguration decFromDto;
-        private MapperConfiguration profileFromDto;
-
         public bool IsEdit => isEdit;
 
         public string Message { get; private set; }
@@ -40,19 +33,9 @@ namespace BL
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
-            decToDto = new MapperConfiguration(x => x.CreateMap<Declaration, DeclarationDto>());
-            profileToDto = new MapperConfiguration(x => x.CreateMap<Profile, ProfileDto>());
-
-            decFromDto = new MapperConfiguration(x => x.CreateMap<DeclarationDto, Declaration>());
-            profileFromDto = new MapperConfiguration(x => x.CreateMap<ProfileDto, Profile>());
         }
 
         public string Status { get; private set; }
-
-        public bool CanEditDeclaration(Declaration dec)
-        {
-            throw new System.NotImplementedException();
-        }
 
 
         public void Clear()
@@ -70,8 +53,6 @@ namespace BL
 
             return mapper.MapTo<Declaration, DeclarationDto>(_currentDec);
         }
-
-
         public void SetupFilledDeclaration(DeclarationDto dto)
         {
             _currentDec = mapper.MapTo<DeclarationDto, Declaration>(dto, _currentDec);
@@ -83,8 +64,6 @@ namespace BL
         {
             _profileId = profileId;
         }
-
-
 
         public async Task<bool> SetupEvac(int evacId)
         {
@@ -109,7 +88,6 @@ namespace BL
             }
             return isEdit;
         }
-
         public async Task<bool> ApplyDeclaration()
         {
             if (_profileId == -1)
@@ -138,8 +116,6 @@ namespace BL
                 return false;
             }
         }
-
-
         public async Task<IEnumerable<string>> GetTimesForDate(DateTime date)
         {
             await dbContext.Declarations.LoadAsync();
@@ -166,7 +142,6 @@ namespace BL
 
             return free;
         }
-
         public int GetCost()
         {
             if (_evac == null)
@@ -177,9 +152,7 @@ namespace BL
 
             return (int)(ParkingCost + _evac.EvacCost + _evac.Fine.Cost);
         }
-
         public bool IsPadied { get; private set; }
-
         public void DefineStatus(DecStatus decStatus)
         {
             _currentDec.DecStatus = decStatus;

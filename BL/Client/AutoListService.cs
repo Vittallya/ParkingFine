@@ -15,20 +15,16 @@ namespace BL
         private readonly AllDbContext dbContext;
 
         private IQueryable<Evacuation> _evacs;
-
         public AutoListService(AllDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
-
         public Evacuation SelectedEvac { get; private set; }
-
         public async Task Reload()
         {
             await dbContext.Evacuations.LoadAsync();
             _evacs = dbContext.Evacuations.Where(x => x.CarStatus == CarStatus.AtParking).AsNoTracking();
         }
-
         public async Task<IEnumerable<Evacuation>> GetEvacuations(string input = null)
         {
             if(_evacs == null)
@@ -46,7 +42,6 @@ namespace BL
                x.Auto.Mark.Contains(input) ||
                x.Auto.Model.Contains(input));
         }
-
         public void SetCar(Evacuation auto)
         {
             SelectedEvac = auto;

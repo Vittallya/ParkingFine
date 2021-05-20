@@ -89,9 +89,13 @@
     <Compile Include="Migrations\202105191931353_final.designer.cs">
       <DependentUpon>202105191931353_final.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202105191932519_seed.cs" />
-    <Compile Include="Migrations\202105191932519_seed.designer.cs">
-      <DependentUpon>202105191932519_seed.cs</DependentUpon>
+    <Compile Include="Migrations\202105201913140_Parking_phone_city.cs" />
+    <Compile Include="Migrations\202105201913140_Parking_phone_city.designer.cs">
+      <DependentUpon>202105201913140_Parking_phone_city.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105201917447_seed.cs" />
+    <Compile Include="Migrations\202105201917447_seed.designer.cs">
+      <DependentUpon>202105201917447_seed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Auto.cs" />
@@ -137,8 +141,11 @@
     <EmbeddedResource Include="Migrations\202105191931353_final.resx">
       <DependentUpon>202105191931353_final.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105191932519_seed.resx">
-      <DependentUpon>202105191932519_seed.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105201913140_Parking_phone_city.resx">
+      <DependentUpon>202105201913140_Parking_phone_city.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105201917447_seed.resx">
+      <DependentUpon>202105201917447_seed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

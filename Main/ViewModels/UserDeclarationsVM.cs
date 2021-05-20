@@ -2,11 +2,11 @@
 
 namespace Main.ViewModels
 {
-    public class ClientResultViewModel: BaseViewModel
+    public class UserDeclarationsVM: BaseViewModel
     {
         private readonly PageService pageService;
 
-        public ClientResultViewModel(
+        public UserDeclarationsVM(
             PageService pageService)
         {
             this.pageService = pageService;

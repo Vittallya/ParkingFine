@@ -18,7 +18,7 @@ namespace Main
 
         public  MainViewModel MainViewModel => Services.GetRequiredService<MainViewModel>();
         public  PhoneConfirmViewModel PhoneConfirmViewModel => Services.GetRequiredService<PhoneConfirmViewModel>();
-        public  ClientResultViewModel ClientResultViewModel => Services.GetRequiredService<ClientResultViewModel>();
+        public  UserDeclarationsVM ClientResultViewModel => Services.GetRequiredService<UserDeclarationsVM>();
         public  ViewModels.SearchViewModel SearchViewModel => Services.GetRequiredService<SearchViewModel>();
         public  ViewModels.DetailInfoViewModel DetailInfoViewModel => Services.GetRequiredService<DetailInfoViewModel>();
         public  ViewModels.DeclarationViewModel DeclarationViewModel => Services.GetRequiredService<DeclarationViewModel>();

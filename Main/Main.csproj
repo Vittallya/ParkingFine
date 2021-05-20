@@ -138,7 +138,7 @@
     <Compile Include="Services\UpdateHandlerService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\ClientResultViewModel.cs" />
+    <Compile Include="ViewModels\UserDeclarationsVM.cs" />
     <Compile Include="Components\NotificationItem.cs" />
     <Compile Include="ViewModels\DeclarationViewModel.cs" />
     <Compile Include="ViewModels\DetailInfoViewModel.cs" />

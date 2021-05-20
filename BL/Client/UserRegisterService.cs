@@ -14,13 +14,9 @@ namespace BL
         private readonly AllDbContext db;
         private readonly UserService userService;
         private readonly MapperService mapper;
-
         public int DelayIntervalSec { get; } = 3;
-
         public string ErrorMessage { get; private set; }
-
         public bool IsBeginned { get; private set; }
-
         public UserRegisterService( AllDbContext allDbContext,
             UserService userService,
             MapperService mapper)
@@ -31,15 +27,12 @@ namespace BL
         }
 
         ProfileDto _curProfile;
-
         public bool IsProfileSettedUp => _curProfile != null;
-
         public void SetupProfileData(ProfileDto dto)
         {
             IsBeginned = true;
             _curProfile = dto;
         }
-
         public ProfileDto GetProfile()
         {
             if (_curProfile == null)
@@ -101,7 +94,6 @@ namespace BL
                 return -1;
             }
         }
-
         public void Clear()
         {
             _curProfile = null;

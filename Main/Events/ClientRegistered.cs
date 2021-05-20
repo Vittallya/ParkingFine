@@ -10,12 +10,12 @@ namespace Main.Events
 {
     public class ClientRegistered: IEvent
     {
-        public ClientRegistered(IUser user)
+        public ClientRegistered(ProfileDto user)
         {
             User = user;
         }
 
-        public IUser User { get; set; }
+        public ProfileDto User { get; set; }
 
     }
 }

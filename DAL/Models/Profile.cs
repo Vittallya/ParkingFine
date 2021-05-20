@@ -10,11 +10,8 @@ namespace DAL.Models
 {
     public class Profile
     {
-        [Key]
-        [ForeignKey("Declaration")]
-
         public int Id { get; set; }
-        public Declaration Declaration { get; set; }
+        public ICollection<Declaration> Declarations { get; set; }
         public string FIO { get; set; }
         public string DriverLicence { get; set; }
         public string Osago { get; set; }

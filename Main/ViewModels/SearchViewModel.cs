@@ -80,9 +80,11 @@ namespace Main.ViewModels
         }
         public ICommand SelectCar => new Command(x => 
         {
-            listService.SetCar(SelectedItem.Evac);
-            pageService.ChangePage<Pages.DetailInfoPage>(Rules.Pages.MainPool, MVVM_Core.DisappearAndToSlideAnim.ToLeft);
-        }, 
-        y => Selected);
+            if (x is AutoItem item)
+            {
+                listService.SetCar(item.Evac);
+                pageService.ChangePage<Pages.DetailInfoPage>(Rules.Pages.MainPool, MVVM_Core.DisappearAndToSlideAnim.ToLeft);
+            }
+        });
     }
 }

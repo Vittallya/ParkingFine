@@ -72,19 +72,26 @@
                   BorderBrush="{x:Null}"
                   VerticalAlignment="Top"
                   Padding="20 5"
+                  HorizontalContentAlignment="Stretch"
                   Visibility="{Binding IsListViewVisible, Converter={StaticResource BoolToVis}}"
                   SelectedItem="{Binding SelectedItem}"
                   >
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid HorizontalAlignment="Center" Margin="5 10"  >
+                    <Grid Margin="5 10"  >
                         
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="8*" />
                         </Grid.ColumnDefinitions>
 
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                        
                         <DockPanel>
 
                                 <TextBlock
@@ -106,17 +113,31 @@
                         </DockPanel>
 
                         <DockPanel
-                            HorizontalAlignment="Center"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Grid.Column="1">
+                            Grid.Column="2">
                             <TextBlock FontSize="16">
                                 <Run  Text="ТС на данный момент находится"/>
                                 <Run FontWeight="DemiBold" Text="{Binding StatusText, Mode=OneWay}"/>
                             </TextBlock>
                             
                         </DockPanel>
-                        
-                    </Grid>
+
+                            <Button 
+                                Grid.Row="1"
+                                FontSize="15"
+                                Content="Это мой автомобиль"
+                                Grid.ColumnSpan="3"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, 
+                                Path=IsMouseOver, Converter={StaticResource BoolToVis}}"
+                                DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}, Path=DataContext}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}, Path=DataContext}"
+                                Command="{Binding SelectCar}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Padding="35 7"/>
+
+                        </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
             
@@ -146,15 +167,6 @@
             
         </ListView>
 
-            <Grid  Grid.Row="2" Background="White">
-
-                <Button Padding="20 5"
-                    Command="{Binding SelectCar}"
-                    Margin="0 10"
-                    HorizontalAlignment="Center"
-                    Visibility="{Binding Selected, Converter={StaticResource BoolToVis}}"
-                    Content="Это мой автомобиль"/>
-            </Grid>
         </Grid>
     </Grid>
 </Page>

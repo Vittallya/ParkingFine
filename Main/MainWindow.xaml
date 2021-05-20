@@ -11,15 +11,69 @@
     <Grid>
 
 
-        <Frame  NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        
+        
+        <DockPanel
+            Margin="10 5"
+            HorizontalAlignment="Right">
+            <Button 
+                Margin="25 0"
+                Style="{DynamicResource LinkButton}"
+                FontSize="15"
+                Command="{Binding ParkingsCommand}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Content="Штрафстоянки"/>
+            
+            <Button 
+                Style="{DynamicResource LinkButton}"
+                FontSize="15"
+                Command="{Binding ToLoginCommand}"
+                VerticalAlignment="Center"
+                Visibility="{Binding IsAutorized, Converter={StaticResource BoolToVisInvert}}"
+                HorizontalAlignment="Right"
+                Content="Авторизоваться"/>
+            
+            <Button 
+                Margin="15 0"
+            FontSize="16"
+            HorizontalAlignment="Right"
+            Visibility="{Binding IsAutorized, Converter={StaticResource BoolToVis}}"
+            Style="{DynamicResource ButtonEmpty}">
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           Text="{Binding UserName}"/>
+                <Image  Margin="10 0 0 0" Width="50" Source="user.png"/>
+            </StackPanel>
+            </Button>
+            
+            <Button 
+                Style="{DynamicResource LinkButton}"
+                FontSize="15"
+                Command="{Binding LogoutCommand}"
+                VerticalAlignment="Center"
+                Visibility="{Binding IsAutorized, Converter={StaticResource BoolToVis}}"
+                HorizontalAlignment="Right"
+                Content="Выйти"/>
+
+        </DockPanel>
+        <Frame Grid.Row="1"  NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
 
         <TextBlock
-            FontSize="14"
+            Grid.RowSpan="2"
+            FontSize="16"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisInvert}}" Text="Инициализация бд..."/>
 
         <Ellipse Fill="Black" 
+            Grid.RowSpan="2"
                  Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisInvert}}"
                   Width="8"  Margin="0 40 0 0" Height="8" RenderTransformOrigin="0.5,0.5">
             <Ellipse.RenderTransform>

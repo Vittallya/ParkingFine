@@ -6,74 +6,175 @@
       xmlns:local="clr-namespace:Main.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      DataContext="{Binding Source={StaticResource Locator}, Path=UserRegViewModel}"
       Title="UserRegPage">
 
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
         <TextBlock 
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
+            Grid.Column="1"
             Style="{DynamicResource TextBlock_H1}">
             <Run Text="Укажите данные авторизации"/>
 
         </TextBlock>
 
-        <StackPanel Width="320" Grid.Row="1" HorizontalAlignment="Center">
+        <StackPanel 
+            Grid.Column="1"
+            MaxWidth="350"
+            Grid.Row="1" >
 
 
             <TextBlock 
                     FontSize="14"
-                    HorizontalAlignment="Left"
-                    Text="Введите код:"/>
+                    Text="Введите номер телефона:"/>
             <!--<CheckBox IsChecked="{Binding IamAdmin}" Margin="0 10" Content="Я администратор"/>-->
 
             <TextBox Margin="0 5 0 0"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Top"
-                     Width="150"
                      FontSize="15"
-                     Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}"/>
-            
+                     Text="{Binding Profile.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+
             <TextBlock 
+                    Margin="0 15 0 0"
                     FontSize="14"
-                    HorizontalAlignment="Left"
                     Text="Введите пароль:"/>
-            <!--<CheckBox IsChecked="{Binding IamAdmin}" Margin="0 10" Content="Я администратор"/>-->
 
-            <TextBox Margin="0 5 0 0"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Top"
-                     Width="150"
-                     FontSize="15"
-                     Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}"/>
+            <ContentControl 
+                Margin="0 5 0 0"
+                TextBlock.FontSize="15"
+                Content="{Binding PasswordBox, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock 
+                    Margin="0 15 0 0"
+                    FontSize="14"
+                    Text="Подтвердите пароль:"/>
+
+            <ContentControl 
+                Margin="0 5 0 0"
+                TextBlock.FontSize="15"
+                Content="{Binding PasswordBoxConf, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-
-            <Button 
-                    Margin="0 10"
-                    FontSize="16"
-                    HorizontalAlignment="Center"
-                    Content="Продолжить" 
-                    Padding="55 10" 
-                    Command="{Binding LoginCommand}"/>
 
         </StackPanel>
 
+        <TextBlock 
+                Margin="0 25 0 0"
+                Text="{Binding Msg}"
+                Foreground="Red"
+                FontSize="15"
+            Grid.Column="1"
+            Grid.Row="1"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+                Style="{DynamicResource SprigniessText}"
+                Visibility="{Binding MsgVis, Converter={StaticResource BoolToVis}}"/>
+
+        
+        
+        
         <Button 
-                    Margin="25"  
+                    Margin="0 10"
+                    FontSize="16"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Content="Продолжить" 
+                    Padding="55 8" 
+                    Command="{Binding NextCommand}"/>
+
+        <Button  
                     Content="Назад"
                     FontSize="14"
+                    Grid.Column="1"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
-                    Grid.Row="1"
-                    Padding="45 8   " 
+                    VerticalAlignment="Center"
+                    Grid.Row="2"
+                    Padding="45 8" 
                     Command="{Binding BackCommand}"/>
+
+        <Rectangle 
+            Visibility="{Binding IsSplashVisible, Converter={StaticResource BoolToVis}}"
+            Grid.ColumnSpan="4"
+            Grid.RowSpan="4"
+            Fill="Black" Opacity="0.7"/>
+
+
+        <Border 
+            Visibility="{Binding IsSplashVisible, Converter={StaticResource BoolToVis}}"
+            BorderBrush="White"
+            BorderThickness="3"
+            CornerRadius="3"
+            Padding="95 45"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Grid.ColumnSpan="4"
+            Grid.RowSpan="4"
+            Background="White">
+            <StackPanel>
+
+                <TextBlock
+            FontSize="16"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+                    Text="Регистрация..."/>
+
+                <Ellipse Fill="Black" 
+                 Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisInvert}}"
+                  Width="8"  Margin="0 15 0 0" Height="8" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TranslateTransform X="0"/>
+                    </Ellipse.RenderTransform>
+
+                    <Ellipse.Style>
+                        <Style TargetType="Ellipse">
+                            <Style.Triggers>
+                                <Trigger Property="Visibility" Value="Visible">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50" >
+                                                        <EasingDoubleKeyFrame.EasingFunction>
+                                                            <ElasticEase Oscillations="0" />
+                                                        </EasingDoubleKeyFrame.EasingFunction>
+                                                    </EasingDoubleKeyFrame>
+
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="-50" >
+                                                        <EasingDoubleKeyFrame.EasingFunction>
+                                                            <ElasticEase Oscillations="0"/>
+                                                        </EasingDoubleKeyFrame.EasingFunction>
+                                                    </EasingDoubleKeyFrame>
+
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0" >
+                                                    </EasingDoubleKeyFrame>
+
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Ellipse.Style>
+                </Ellipse>
+            </StackPanel>
+        </Border>
+
 
     </Grid>
 </Page>

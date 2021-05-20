@@ -10,13 +10,18 @@ namespace Main.ViewModels
     public class DetailInfoViewModel : BasePageViewModel
     {
         private readonly IAutoListService listService;
-        private readonly IDeclarationService declarationService;
+        private readonly UserService userService;
+        private readonly DeclarationService declarationService;
 
         public bool HasActive { get; set; }
 
-        public DetailInfoViewModel(PageService pageservice, BL.IAutoListService listService, IDeclarationService declarationService) : base(pageservice)
+        public DetailInfoViewModel(PageService pageservice,
+                                   BL.IAutoListService listService,
+                                   UserService userService,
+                                   DeclarationService declarationService) : base(pageservice)
         {
             this.listService = listService;
+            this.userService = userService;
             this.declarationService = declarationService;
             Evac = listService.SelectedEvac;
 
@@ -35,14 +40,24 @@ namespace Main.ViewModels
 
         protected override void Next(object param)
         {
-            if (HasActive)
-            {
-                pageservice.ChangePage<Pages.LoginPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
-            }
-            else
+            if (userService.IsAutorized)
             {
                 pageservice.ChangePage<Pages.DeclarationPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
             }
+            else
+            {
+                pageservice.SetupNext<Pages.DeclarationPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
+                pageservice.ChangePage<Pages.ProfilePage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
+            }
+
+            //if (HasActive)
+            //{
+            //    pageservice.ChangePage<Pages.LoginPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
+            //}
+            //else
+            //{
+            //    pageservice.ChangePage<Pages.DeclarationPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
+            //}
         }
 
         public string Points { get; set; }

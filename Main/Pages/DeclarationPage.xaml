@@ -176,5 +176,6 @@
             Content="Далее" 
             Command="{Binding NextCommand}"/>
 
+     
     </Grid>
 </Page>

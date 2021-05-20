@@ -7,13 +7,13 @@ namespace DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class passw : IMigrationMetadata
+    public sealed partial class seed : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(passw));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(seed));
         
         string IMigrationMetadata.Id
         {
-            get { return "202105101459005_passw"; }
+            get { return "202105191932519_seed"; }
         }
         
         string IMigrationMetadata.Source

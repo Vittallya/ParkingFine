@@ -12,7 +12,7 @@ namespace BL
 {
 
     
-    public class DeclarationService : IDeclarationService
+    public class DeclarationService
     {
         public const int BEGIN_TIME = 10;
         public const int END_TIME = 18;
@@ -22,7 +22,6 @@ namespace BL
 
         private Evacuation _evac;
         private Declaration _currentDec;
-        private Profile _profile;
 
         private MapperConfiguration decToDto;
         private MapperConfiguration profileToDto;
@@ -35,11 +34,12 @@ namespace BL
         public string Message { get; private set; }
 
         private readonly AllDbContext dbContext;
+        private readonly MapperService mapper;
 
-        public DeclarationService(AllDbContext dbContext)
+        public DeclarationService(AllDbContext dbContext, MapperService mapper)
         {
             this.dbContext = dbContext;
-
+            this.mapper = mapper;
             decToDto = new MapperConfiguration(x => x.CreateMap<Declaration, DeclarationDto>());
             profileToDto = new MapperConfiguration(x => x.CreateMap<Profile, ProfileDto>());
 
@@ -58,7 +58,6 @@ namespace BL
         public void Clear()
         {
             _currentDec = null;
-            _profile = null;
             _evac = null;
             isEdit = false;
             IsPadied = false;
@@ -69,38 +68,20 @@ namespace BL
             if (_evac == null)
                 throw new ArgumentException("Информация об эвакуцаии не была загружена");
 
-            
-            var mapper = new Mapper(decToDto);
-            var dto = mapper.Map<Declaration, DeclarationDto>(_currentDec);
-
-            return dto;
+            return mapper.MapTo<Declaration, DeclarationDto>(_currentDec);
         }
 
-        public ProfileDto GetProfile()
-        {
-            if (_evac == null)
-                throw new ArgumentException("Информация об эвакуцаии не была загружена");
-
-
-            var mapper = new Mapper(profileToDto);
-            var dto = mapper.Map<Profile, ProfileDto>(_profile);
-            return dto;
-        }
 
         public void SetupFilledDeclaration(DeclarationDto dto)
         {
-            var mapper = new Mapper(decFromDto);
-            var dec = mapper.Map<DeclarationDto, Declaration>(dto, _currentDec);
-
-            _currentDec = dec;
+            _currentDec = mapper.MapTo<DeclarationDto, Declaration>(dto, _currentDec);
         }
 
-        public void SetupFilledProfile(ProfileDto dto)
-        {
-            var mapper = new Mapper(profileFromDto);
-            var profile = mapper.Map<ProfileDto, Profile>(dto, _profile);
+        int _profileId = -1;
 
-            _profile = profile;
+        public void SetupProfile(int profileId)
+        {
+            _profileId = profileId;
         }
 
 
@@ -125,23 +106,24 @@ namespace BL
 
                 if (!isEdit)
                     _currentDec.EvacuationId = evacId;
-
-                _profile = _currentDec.Profile ?? new Profile() { };
             }
             return isEdit;
         }
 
         public async Task<bool> ApplyDeclaration()
-        {            
+        {
+            if (_profileId == -1)
+                throw new ArgumentException("Профиль не был установлен");
+
+
             if (isEdit)
             {
                 dbContext.Entry(_currentDec).State = EntityState.Modified;
             }
             else
             {
-                _currentDec.Profile = _profile;
+                _currentDec.ProfileId = _profileId;
                 _currentDec.CreatingDate = DateTime.Now;
-                dbContext.Profiles.Add(_profile);
                 dbContext.Declarations.Add(_currentDec);
             }
 

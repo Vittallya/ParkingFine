@@ -17,7 +17,7 @@ namespace Main
         }
 
         public  MainViewModel MainViewModel => Services.GetRequiredService<MainViewModel>();
-        public  LoginViewModel LoginViewModel => Services.GetRequiredService<LoginViewModel>();
+        public  PhoneConfirmViewModel PhoneConfirmViewModel => Services.GetRequiredService<PhoneConfirmViewModel>();
         public  ClientResultViewModel ClientResultViewModel => Services.GetRequiredService<ClientResultViewModel>();
         public  ViewModels.SearchViewModel SearchViewModel => Services.GetRequiredService<SearchViewModel>();
         public  ViewModels.DetailInfoViewModel DetailInfoViewModel => Services.GetRequiredService<DetailInfoViewModel>();
@@ -26,6 +26,7 @@ namespace Main
         public  ViewModels.PaymentViewModel PaymentViewModel => Services.GetRequiredService<PaymentViewModel>();
         public  ViewModels.ResultViewModel ResultViewModel => Services.GetRequiredService<ResultViewModel>();
         public  ViewModels.UserRegViewModel UserRegViewModel => Services.GetRequiredService<UserRegViewModel>();
+        public  ViewModels.LoginViewModel LoginViewModel => Services.GetRequiredService<LoginViewModel>();
     }
 }
 

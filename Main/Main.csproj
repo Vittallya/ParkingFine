@@ -114,6 +114,9 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PhoneConfirmPage.xaml.cs">
+      <DependentUpon>PhoneConfirmPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PaymentPage.xaml.cs">
       <DependentUpon>PaymentPage.xaml</DependentUpon>
     </Compile>
@@ -134,11 +137,12 @@
     <Compile Include="Rules\Statics.cs" />
     <Compile Include="Services\UpdateHandlerService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ClientResultViewModel.cs" />
     <Compile Include="Components\NotificationItem.cs" />
     <Compile Include="ViewModels\DeclarationViewModel.cs" />
     <Compile Include="ViewModels\DetailInfoViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PhoneConfirmViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PaymentViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
@@ -167,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PhoneConfirmPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -263,6 +271,9 @@
       <Project>{1122897e-3df2-4e7a-bc2a-233b007df0ec}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

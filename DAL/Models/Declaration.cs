@@ -74,6 +74,7 @@ namespace DAL.Models
         public DecStatus DecStatus { get; set; }
 
         public Evacuation Evacuation { get; set; }
-        public virtual Profile Profile { get; set; }
+        public int ProfileId { get; set; }
+        public Profile Profile { get; set; }
     }
 }

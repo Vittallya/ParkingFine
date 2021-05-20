@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public interface ILoginService
+    public interface IPhoneConfirmService
     {
         int Time { get; }
 

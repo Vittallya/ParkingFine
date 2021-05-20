@@ -19,6 +19,12 @@
         </Grid.RowDefinitions>
 
 
+        <TextBlock 
+            HorizontalAlignment="Center"
+            Style="{DynamicResource TextBlock_H1}"
+            VerticalAlignment="Center"
+            Text="Данные об эвакуации"/>
+
         <ScrollViewer 
             VerticalAlignment="Top"
             Grid.Row="1" 

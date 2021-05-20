@@ -7,11 +7,11 @@ namespace Main.ViewModels
     public class ResultViewModel : BasePageViewModel
 
     {
-        private readonly IDeclarationService declarationService;
+        private readonly DeclarationService declarationService;
 
         public string Message { get; set; }
 
-        public ResultViewModel(PageService pageservice, IDeclarationService declarationService) : base(pageservice)
+        public ResultViewModel(PageService pageservice, DeclarationService declarationService) : base(pageservice)
         {
             this.declarationService = declarationService;
             init();

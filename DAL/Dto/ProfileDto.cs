@@ -8,6 +8,7 @@ namespace DAL
 {
     public class ProfileDto
     {
+        public int Id { get; set; }
         public string FIO { get; set; }
         public string DriverLicence { get; set; }
         public string Osago { get; set; }

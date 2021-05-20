@@ -14,11 +14,14 @@ namespace Main
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<AllDbContext>();
+            services.AddTransient<LoginService>();
+            services.AddTransient<MapperService>();
+            services.AddSingleton<UserService>();
             services.AddTransient<DbContextLoader>();
             services.AddSingleton<IAutoListService, AutoListService>();
-            services.AddTransient<ILoginService, LoginService>();
-            services.AddSingleton<IUserRegisterService, UserRegisterService>();
-            services.AddSingleton<IDeclarationService, DeclarationService>();
+            services.AddTransient<IPhoneConfirmService, PhoneConfirmService>();
+            services.AddSingleton<UserRegisterService>();
+            services.AddSingleton<DeclarationService>();
             services.AddSingleton<ClientPipeHanlder>();
             services.AddTransient<Services.UpdateHandlerService>();
         }

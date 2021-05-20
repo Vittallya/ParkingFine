@@ -13,12 +13,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="12*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock 
@@ -43,28 +44,35 @@
             <TextBlock Margin="0 10 0 0"  Text="Серия паспорта" Style="{DynamicResource TextBlock_H4}"/>
             <TextBox Margin="0 5" Text="{Binding Profle.PasportSerial}"/>
 
-            <TextBlock Margin="0 10 0 0"  Text="Номер телефона" Style="{DynamicResource TextBlock_H4}"/>
-            <TextBox Margin="0 5" Text="{Binding Profle.PhoneNumber}"/>
-            
+            <TextBlock 
+                Margin="0 25 0 0"
+                Text="{Binding Msg}"
+                Foreground="Red"
+                FontSize="15"
+                Style="{DynamicResource SprigniessText}"
+                Visibility="{Binding MsgVis, Converter={StaticResource BoolToVis}}"/>
+
         </StackPanel>
 
         <Button 
-            Grid.ColumnSpan="2"
+            Grid.Column="1"
             Grid.Row="2"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Padding="45 5"
-            Margin="25 0 0 0"
+            FontSize="15"
             Content="Назад" 
             Command="{Binding BackCommand}"/>
 
         <Button 
-            Grid.ColumnSpan="2"
+            Grid.Column="1"
+            
             Grid.Row="2"
-            FontSize="16"
-            HorizontalAlignment="Right"
+            FontSize="17"
+            HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Padding="45 5"
+            FontWeight="DemiBold"
             Margin="0 0 25 0"
             Content="Далее" 
             Command="{Binding NextCommand}"/>

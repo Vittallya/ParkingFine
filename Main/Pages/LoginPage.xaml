@@ -10,67 +10,57 @@
       Title="LoginPage">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition />
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
-
-        <TextBlock 
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Style="{DynamicResource TextBlock_H3}">
-            <Run Text="{Binding Phone}" FontStyle="Italic"/>
-            <Run Text="на данный номер телефона отправлен код подтверждения"/>
-
-        </TextBlock>
-
-        <StackPanel Width="320" Grid.Row="1" HorizontalAlignment="Center">
+        <TextBlock Text="Авторизоваться"
+                   Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Style="{DynamicResource TextBlock_H1}"/>
 
 
-            <TextBlock 
-                    FontSize="14"
-                    HorizontalAlignment="Left"
-                    Text="Введите код:"/>
-            <!--<CheckBox IsChecked="{Binding IamAdmin}" Margin="0 10" Content="Я администратор"/>-->
+        <StackPanel 
+            MaxWidth="250"
+            Grid.Row="1" 
+            Grid.Column="1">
 
-            <TextBox Margin="0 5 0 0"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Top"
-                     Width="150"
-                     FontSize="15"
-                     Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}"/>
-
-
-            <Button 
-                    IsEnabled="{Binding IsBtnEnabled}"
-                    Margin="0 10"  
-                    Content="{Binding BtnText}"
-                    FontSize="14"
-                    HorizontalAlignment="Right"
-                    Padding="25 5" 
-                    Command="{Binding GetCodeCommand}"/>
-
-            <Button 
-                    Margin="0 10"
-                    FontSize="16"
-                    HorizontalAlignment="Center"
-                    Content="Продолжить" 
-                    Padding="55 10" 
-                    Command="{Binding LoginCommand}"/>
-
+            <TextBlock Text="Номер телефона" Margin="0 5" Style="{DynamicResource TextBlock_H4}"/>
+            <TextBox Text="{Binding Phone}" FontSize="15"/>
+            
+            <TextBlock Text="Пароль" Margin="0 15 0 5" Style="{DynamicResource TextBlock_H4}"/>
+            <ContentControl Content="{Binding PasswordBox}" TextBlock.FontSize="15"/>
         </StackPanel>
 
-        <Button 
-                    Margin="25"  
-                    Content="Назад"
-                    FontSize="14"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
-                    Grid.Row="1"
-                    Padding="45 8   " 
-                    Command="{Binding BackCommand}"/>
 
+        <Button 
+            Grid.Column="1"
+            Grid.Row="1"
+            Command="{Binding NextCommandAsync}"
+            Padding="55 10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Content="Войти"
+                FontSize="17"/>
+        
+        <Button 
+            Grid.Column="1"
+            Grid.Row="2"
+            Padding="35 7"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Margin="0 10 0 0"
+            Command="{Binding BackCommand}"
+            Content="Назад"
+                FontSize="15"/>
     </Grid>
 </Page>

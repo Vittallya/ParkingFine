@@ -8,7 +8,7 @@ namespace Main.Rules
 {
     public static class Static
     {
-        public static Dictionary<DAL.Models.PayingType, string> PayTypeConvert = new Dictionary<DAL.Models.PayingType, string>
+        public static readonly Dictionary<DAL.Models.PayingType, string> PayTypeConvert = new Dictionary<DAL.Models.PayingType, string>
         {
             { DAL.Models.PayingType.Online, "Онлайн"},
             { DAL.Models.PayingType.UpponArrival, "По прибытию"},

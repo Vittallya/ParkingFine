@@ -2,35 +2,80 @@
 using DAL.Models;
 using DAL;
 using MVVM_Core;
+using MVVM_Core.Validation;
+using System;
 
 namespace Main.ViewModels
 {
     public class ProfileViewModel : BasePageViewModel
     {
         private readonly PageService pageservice;
-        private readonly IDeclarationService declarationService;
+        private readonly Validator validator;
+        private readonly UserService userService;
+        private readonly UserRegisterService registerService;
+        private readonly DeclarationService declarationService;
 
         public ProfileDto Profle { get; set; }
 
-        public ProfileViewModel(PageService pageservice, IDeclarationService declarationService) : base(pageservice)
+        public ProfileViewModel(PageService pageservice, 
+            Validator validator,
+            UserService userService,
+            UserRegisterService registerService,
+            DeclarationService declarationService) : base(pageservice)
         {
             this.pageservice = pageservice;
+            this.validator = validator;
+            this.userService = userService;
+            this.registerService = registerService;
             this.declarationService = declarationService;
-            Profle = declarationService.GetProfile();
+
+            Init();
         }
 
-        protected override void Next(object param)
-        {  //Нектороые проверочки
-            declarationService.SetupFilledProfile(Profle);
-
-            if (declarationService.GetDeclaration().PayingType == PayingType.Online)
+        private void Init()
+        {
+            if (userService.IsAutorized)
             {
-                pageservice.ChangePage<Pages.PaymentPage>(Rules.Pages.MainPool, DisappearAndToSlideAnim.ToLeft);
+                Profle = userService.CurrentUser;
+            }
+            else if (registerService.IsBeginned)
+            {
+                Profle = registerService.GetProfile();
             }
             else
+                Profle = new ProfileDto();
+
+            validator.ForProperty(() => Profle.FIO, "ФИО").NotEmpty();
+            validator.ForProperty(() => Profle.Osago, "Номер ОСАГО").NotEmpty();
+            validator.ForProperty(() => Profle.DriverLicence, "Номер вод. прав").NotEmpty();
+            validator.ForProperty(() => Profle.PasportNumber, "Номер паспорта").NotEmpty();
+            validator.ForProperty(() => Profle.PasportSerial, "Серия паспорта").NotEmpty();
+        }
+
+        public string Msg { get; set; }
+        public bool MsgVis { get; set; }
+
+        protected override void Next(object param)
+        {
+            MsgVis = false;
+
+            if (!validator.IsCorrect)
             {
-                pageservice.ChangePage<Pages.ResultPage>(Rules.Pages.MainPool, DisappearAndToSlideAnim.ToLeft);
+                Msg = validator.ErrorMessage;
+                MsgVis = true;
+                return;
             }
+            registerService.SetupProfileData(Profle);
+            pageservice.ChangePage<Pages.UserRegPage>(Rules.Pages.MainPool, DisappearAndToSlideAnim.ToLeft);
+
+            //if (declarationService.GetDeclaration().PayingType == PayingType.Online)
+            //{
+            //    pageservice.ChangePage<Pages.PaymentPage>(Rules.Pages.MainPool, DisappearAndToSlideAnim.ToLeft);
+            //}
+            //else
+            //{
+            //    pageservice.ChangePage<Pages.ResultPage>(Rules.Pages.MainPool, DisappearAndToSlideAnim.ToLeft);
+            //}
         }
 
         public override int PoolIndex => Rules.Pages.MainPool;

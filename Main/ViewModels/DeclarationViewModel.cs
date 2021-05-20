@@ -6,19 +6,27 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using Main.Events;
 
 namespace Main.ViewModels
 {
     public class DeclarationViewModel : BasePageViewModel
     {
-        private readonly IDeclarationService declarationService;
+        private readonly UserService userService;
+        private readonly EventBus eventBus;
+        private readonly DeclarationService declarationService;
         private DateTime selectedDate;
         private TimeSpan _selectedTime;
 
         public DeclarationDto Declaration { get; set; }
 
-        public DeclarationViewModel(PageService pageservice, BL.IDeclarationService declarationService) : base(pageservice)
+        public DeclarationViewModel(PageService pageservice, 
+            UserService userService,
+            EventBus eventBus,
+            BL.DeclarationService declarationService) : base(pageservice)
         {
+            this.userService = userService;
+            this.eventBus = eventBus;
             this.declarationService = declarationService;
 
             Declaration = declarationService.GetDeclaration();
@@ -29,15 +37,15 @@ namespace Main.ViewModels
 
         public Dictionary<PayingType, string> PayType { get; set; }
 
+        public bool IsSplashVisible { get; set; }
         
         void init()
         {
+            declarationService.SetupProfile(userService.CurrentUser.Id);
             PayType = Rules.Static.PayTypeConvert;
             StartDate = DateTime.Now.AddDays(1);
             selectedDate = Declaration.ComingDate;
             _selectedTime = selectedDate.TimeOfDay;
-
-            
         }
         protected override void Next(object param)
         {
@@ -46,18 +54,19 @@ namespace Main.ViewModels
             Declaration.ComingDate = SelectedDate.Date.AddHours(time.Hours);
             declarationService.SetupFilledDeclaration(Declaration);
 
-            if (declarationService.IsEdit && !IsPaid && Declaration.PayingType == PayingType.Online)
+            if (!IsPaid && Declaration.PayingType == PayingType.Online)
             {
                 pageservice.ChangePage<Pages.PaymentPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
             }
-            else if (declarationService.IsEdit)
+            else
             {
                 pageservice.ChangePage<Pages.ResultPage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
             }
-            else
-            {
-                pageservice.ChangePage<Pages.ProfilePage>(PoolIndex, DisappearAndToSlideAnim.ToLeft);
-            }
+        }
+
+        protected override void Back(object param)
+        {
+            pageservice.Back<Pages.DetailInfoPage>(PoolIndex);
         }
 
         public DateTime SelectedDate { 

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Main.Properties {
+namespace DAL.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Main.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Main.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DAL.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,12 +61,22 @@ namespace Main.Properties {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        ///   Ищет локализованную строку, похожую на USING [ParkingFineDb]
+        ///GO
+        ///
+        ///
+        ///
+        ///INSERT INTO [Autoes]([Id], [GovNumber], [Mark], [Model]) VALUES(1, N&apos;A437АЕ 147(RUS)&apos;, &apos;Lada&apos;, &apos;Vesta&apos;);
+        ///INSERT INTO [Autoes]([Id], [GovNumber], [Mark], [Model]) VALUES(2, N&apos;Н473ЗИ 116(RUS)&apos;, &apos;Scoda&apos;, &apos;Octavia&apos;);
+        ///INSERT INTO [Autoes]([Id], [GovNumber], [Mark], [Model]) VALUES(3, N&apos;548ОП 263(РУС)&apos;, &apos;Nissan&apos;, &apos;Almera&apos;);
+        ///
+        ///
+        ///INSERT INTO [Fines]([Id], [Name], [Cost]) VALUES(1, N&apos;Парковка в неправильном месте&apos;, 1000);
+        ///INSERT INTO [Fines]([Id], [Name], [Cost]) VALUES(2, N&apos;Парк [остаток строки не уместился]&quot;;.
         /// </summary>
-        internal static System.Drawing.Bitmap user {
+        internal static string seed {
             get {
-                object obj = ResourceManager.GetObject("user", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("seed", resourceCulture);
             }
         }
     }

@@ -10,14 +10,14 @@ using DAL.Models;
 namespace BL
 {    
 
-    public class LoginService : ILoginService
+    public class PhoneConfirmService : IPhoneConfirmService
     {
         private AllDbContext dbContext;
         private ProfileDto _profile;
 
         public int Time { get; } = 5;
 
-        public LoginService(AllDbContext dbContext)
+        public PhoneConfirmService(AllDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

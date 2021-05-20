@@ -11,7 +11,7 @@
                 "dbo.Autoes",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: false),
                         GovNumber = c.String(),
                         Mark = c.String(),
                         Model = c.String(),
@@ -42,7 +42,7 @@
                 "dbo.Fines",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: false),
                         Name = c.String(),
                         Cost = c.Int(nullable: false),
                     })
@@ -52,7 +52,7 @@
                 "dbo.Parkings",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: false),
                         Address = c.String(),
                         CostByHour = c.Int(nullable: false),
                     })

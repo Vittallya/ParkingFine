@@ -11,31 +11,20 @@ namespace BL
 {
     public class UserService
     {
-        public IUser CurrentUser { get; private set; }
+        public ProfileDto CurrentUser { get; private set; }
 
         public bool IsAutorized { get; private set; }
 
-        public bool IsSkipped { get; set; }
-
         public event Action Autorized;
         public event Action Exited;
-        public event Action Skipped;
-
-        public void Skip()
-        {
-            IsSkipped = true;
-            IsAutorized = false;
-            Skipped?.Invoke();
-        }
 
         public void Logout()
         {
             CurrentUser = null;
-            IsAutorized = IsSkipped = false;
             Exited?.Invoke();
         }
 
-        public void SetupUser(IUser user)
+        public void SetupUser(ProfileDto user)
         {
             CurrentUser = user;
             IsAutorized = true;

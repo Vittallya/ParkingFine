@@ -13,7 +13,7 @@ namespace Main.ViewModels
         private readonly EventBus eventBus;
         private readonly Validator validator;
 
-        public ProfileDto Profile { get; set; } = new ProfileDto();
+        public string Phone { get; set; }
         public PasswordBox PasswordBox { get; set; } = new PasswordBox();
         public PasswordBox PasswordBoxConf { get; set; } = new PasswordBox();
 
@@ -31,7 +31,7 @@ namespace Main.ViewModels
 
         private void Init()
         {
-            validator.ForProperty(() => Profile.PhoneNumber, "Номер телефона").
+            validator.ForProperty(() => Phone, "Номер телефона").
                 NotEmpty().
                 Predicate(s => s.All(char.IsDigit), "Должны быть только цифры");
 
@@ -55,13 +55,14 @@ namespace Main.ViewModels
             if (validator.IsCorrect)
             {
                 IsSplashVisible = true;
-                registerService.SetupPass(PasswordBox.Password);
+                registerService.SetupPass(Phone, PasswordBox.Password);
 
                 int id = await registerService.RegisterAsync();
                 IsSplashVisible = false;
 
                 if (id > -1)
                 {
+                    registerService.Clear();
                     pageservice.Next();
                 }
                 else
@@ -69,6 +70,7 @@ namespace Main.ViewModels
                     MsgVis = true;
                     Msg = registerService.ErrorMessage;
                 }
+                
             }
             else
             {
@@ -77,6 +79,6 @@ namespace Main.ViewModels
             }
         }
 
-        public override int PoolIndex => Rules.Pages.MainPool;
+        public override int PoolIndex => Rules.Pages.SecPool;
     }
 }

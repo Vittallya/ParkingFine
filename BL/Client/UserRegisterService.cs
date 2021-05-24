@@ -48,9 +48,10 @@ namespace BL
         /// </summary>
         /// <param name="pass"></param>
         /// <returns></returns>
-        public void SetupPass(string pass)
+        public void SetupPass(string phone, string pass)
         {
             _passw = pass;
+            _curProfile.PhoneNumber = phone;
         }
 
         /// <summary>

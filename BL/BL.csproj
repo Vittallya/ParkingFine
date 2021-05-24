@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Client\AutoListService.cs" />
     <Compile Include="Client\LoginService.cs" />
+    <Compile Include="Client\ParkingsService.cs" />
     <Compile Include="System\ClientPipeHanlder.cs" />
     <Compile Include="System\DbContextLoader.cs" />
     <Compile Include="Client\DeclarationService.cs" />

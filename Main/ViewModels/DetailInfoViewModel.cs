@@ -13,7 +13,12 @@ namespace Main.ViewModels
         private readonly UserService userService;
         private readonly DeclarationService declarationService;
 
+        public bool HasActiveOwn { get; set; }
+        public bool HasActiveOther { get; set; }
         public bool HasActive { get; set; }
+
+        public bool NoDeclarations => !HasActiveOther && !HasActiveOwn;
+        public bool NeedAutorize { get; set; }
 
         public DetailInfoViewModel(PageService pageservice,
                                    BL.IAutoListService listService,
@@ -28,6 +33,10 @@ namespace Main.ViewModels
             init();
         }
 
+        public bool IsOther { get; set; }
+
+        public bool IsBorderVisible => NeedAutorize || HasActiveOther;
+
         private async void init()
         {
             Hours = (int)Math.Round((DateTime.Now - Evac.DateTimeEvac).TotalHours);
@@ -35,7 +44,21 @@ namespace Main.ViewModels
             ParkingCost = Evac.Parking.CostByHour * Hours;
 
             HasActive = await declarationService.SetupEvac(Evac.Id);
-            FullCost = declarationService.GetCost();                
+            FullCost = declarationService.GetCost();
+
+            if (HasActive)
+            {
+                NeedAutorize = !userService.IsAutorized;
+                if (userService.IsAutorized)
+                {
+                    HasActiveOther = userService.CurrentUser.Id != declarationService.ProfileId;
+                    HasActiveOwn = !HasActiveOther;
+
+                }
+
+            }
+
+
         }
 
         protected override void Next(object param)

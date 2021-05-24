@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfControlLibrary1", "WpfControlLibrary1\WpfControlLibrary1.csproj", "{43D571CC-C97F-4BB7-BDE2-321FF6B60260}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM_Core", "..\..\..\..\..\Библиотеки\MVVM_Core\MVVM_Core.csproj", "{E2DD1F52-CC8D-4BEA-AB48-7959EC923F2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM_Core", "..\Библиотеки\MVVM_Core\MVVM_Core.csproj", "{E2DD1F52-CC8D-4BEA-AB48-7959EC923F2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,6 +14,7 @@ namespace Main
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<AllDbContext>();
+            services.AddTransient<ParkingsService>();
             services.AddTransient<LoginService>();
             services.AddTransient<MapperService>();
             services.AddSingleton<UserService>();

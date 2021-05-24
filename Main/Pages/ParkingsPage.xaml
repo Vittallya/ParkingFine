@@ -1,0 +1,113 @@
+﻿<Page x:Class="Main.Pages.ParkingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Main.Pages"
+      mc:Ignorable="d" 
+      DataContext="{Binding Source={StaticResource Locator}, Path=ParkingsViewModel}"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ParkingsPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition/>
+            <RowDefinition Height="75"/>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock Text="Штрафстоянки"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Grid.Column="1"
+                   Style="{DynamicResource TextBlock_H1}"/>
+        <ScrollViewer
+            Grid.Column="1" 
+            Grid.Row="1"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Auto">
+            
+
+        <ItemsControl            
+            BorderBrush="{x:Null}"
+            
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding Parkings}">
+
+
+            <ItemsControl.ItemTemplate>
+
+                <DataTemplate>
+
+                    <StackPanel>
+                    <TextBlock 
+                        Style="{DynamicResource TextBlock_H2}"
+                        FontWeight="Bold"
+                        Text="{Binding City}" />
+                        <ItemsControl ItemsSource="{Binding Parks}">
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Border Margin="15 10" Padding="10 5">
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+
+                                            <TextBlock 
+                                                FontWeight="Bold"
+                                                Text="{Binding Id, StringFormat='{}#{0}'}"
+                                                Style="{DynamicResource TextBlock_H2}" />
+                                                    <TextBlock 
+                                                Style="{DynamicResource TextBlock_H3}" >
+                                                <Run Text="Номер телефона:"/>
+                                                <Run FontWeight="DemiBold" Text="{Binding Phone}"/>
+                                                </TextBlock>
+
+                                                <TextBlock 
+                                                Style="{DynamicResource TextBlock_H3}" >
+                                                <Run Text="Адрес стоянки:"/>
+                                                <Run FontWeight="DemiBold" Text="{Binding Address}"/>
+                                                </TextBlock>
+
+                                            </StackPanel>
+
+                                            <!--<Button Content="Позвонить" 
+                                                Style="{DynamicResource LinkButton}"
+                                                FontSize="15"
+                                                Margin="25 0 0 0"/>-->
+
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            
+        </ItemsControl>
+
+
+        </ScrollViewer>
+
+        <Button 
+            Command="{Binding BackCommand}"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Padding="55 10"
+            FontSize="16"
+            VerticalAlignment="Center"
+            Grid.Row="2"
+            Content="Вернуться"/>
+    </Grid>
+</Page>

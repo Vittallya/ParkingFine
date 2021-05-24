@@ -35,9 +35,15 @@ namespace Main.ViewModels
             this.eventBus = eventBus;
             this.handlerService = handlerService;
             pageService.PageChanged += PageService_PageChanged;
-            
 
             Init();
+        }
+
+        protected override void OnPageChanged(Page page, ISliderAnimation sliderAnimation)
+        {
+            _loginPage = page.GetType() == typeof(Pages.LoginPage);
+            _regPage = page.GetType() == typeof(Pages.UserRegPage) || page.GetType() == typeof(Pages.ProfilePage);
+            _parksPage = page.GetType() == typeof(Pages.ParkingsPage);
         }
 
         public string LoadingText { get; set; } = "Инициализация бд...";
@@ -62,11 +68,21 @@ namespace Main.ViewModels
             
         }
 
+        bool _loginPage;
+        bool _regPage;
+        bool _parksPage;
+
         public ICommand ToLoginCommand => new Command(x =>
         {
-            pageService.SetupNext<Pages.SearchAutoPage>(Rules.Pages.MainPool, defaultAnim);
-            pageService.ChangePage<Pages.LoginPage>(Rules.Pages.MainPool, defaultAnim);
-        });
+            pageService.SetupNextCurrent(defaultAnim, true);
+            pageService.ChangePage<Pages.LoginPage>(defaultAnim);
+        }, y => !_loginPage);
+
+        public ICommand ToRegCommand => new Command(x =>
+        {
+            pageService.SetupNextCurrent(defaultAnim, true);
+            pageService.ChangePage<Pages.ProfilePage>(Rules.Pages.SecPool, defaultAnim);            
+        }, y => !_regPage);
 
         public ICommand LogoutCommand => new Command(x =>
         {
@@ -75,7 +91,9 @@ namespace Main.ViewModels
 
         public ICommand ParkingsCommand => new Command(x =>
         {
-        });
+            pageService.SetupNextCurrent(defaultAnim, false);
+            pageService.ChangePage<Pages.ParkingsPage>(defaultAnim);
+        }, y => !_parksPage);
 
         public string UserName { get; set; }
 
@@ -85,6 +103,7 @@ namespace Main.ViewModels
         {
             IsAutorized = false;
             UserName = null;
+            pageService.ReloadCurrentPage(defaultAnim);
         }
 
         private void UserService_Autorized()

@@ -60,6 +60,8 @@ namespace BL
 
         int _profileId = -1;
 
+        public int ProfileId => _profileId;
+
         public void SetupProfile(int profileId)
         {
             _profileId = profileId;
@@ -85,6 +87,8 @@ namespace BL
 
                 if (!isEdit)
                     _currentDec.EvacuationId = evacId;
+                else
+                    _profileId = _currentDec.ProfileId;
             }
             return isEdit;
         }

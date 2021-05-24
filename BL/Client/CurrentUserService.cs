@@ -21,6 +21,7 @@ namespace BL
         public void Logout()
         {
             CurrentUser = null;
+            IsAutorized = false;
             Exited?.Invoke();
         }
 

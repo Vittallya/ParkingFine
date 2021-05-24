@@ -9,6 +9,7 @@ namespace Main.Rules
     public static class Pages
     {
         public const int MainPool = 1;
+        public const int SecPool = 2;
         public const int CLIENT_REGISTRATION_POOL = 2;        
 
         public const bool EMAIL_CONFIRM_REQUIRED = true;

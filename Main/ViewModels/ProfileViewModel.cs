@@ -8,8 +8,7 @@ using System;
 namespace Main.ViewModels
 {
     public class ProfileViewModel : BasePageViewModel
-    {
-        private readonly PageService pageservice;
+    {        
         private readonly Validator validator;
         private readonly UserService userService;
         private readonly UserRegisterService registerService;
@@ -22,8 +21,7 @@ namespace Main.ViewModels
             UserService userService,
             UserRegisterService registerService,
             DeclarationService declarationService) : base(pageservice)
-        {
-            this.pageservice = pageservice;
+        {           
             this.validator = validator;
             this.userService = userService;
             this.registerService = registerService;
@@ -66,7 +64,7 @@ namespace Main.ViewModels
                 return;
             }
             registerService.SetupProfileData(Profle);
-            pageservice.ChangePage<Pages.UserRegPage>(Rules.Pages.MainPool, DisappearAndToSlideAnim.ToLeft);
+            pageservice.ChangePage<Pages.UserRegPage>(Rules.Pages.SecPool, DisappearAndToSlideAnim.ToLeft);
 
             //if (declarationService.GetDeclaration().PayingType == PayingType.Online)
             //{
@@ -78,6 +76,12 @@ namespace Main.ViewModels
             //}
         }
 
-        public override int PoolIndex => Rules.Pages.MainPool;
+        protected override void Back(object param)
+        {
+            registerService.Clear();
+            pageservice.ChangeToLastByPool(Rules.Pages.MainPool);
+        }
+
+        public override int PoolIndex => Rules.Pages.SecPool;
     }
 }

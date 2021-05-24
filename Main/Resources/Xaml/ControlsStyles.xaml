@@ -40,6 +40,14 @@
                         Property="Foreground"
                         Value="Red" />
             </Trigger>
+            
+            <Trigger
+                    Property="IsEnabled"
+                    Value="False">
+                <Setter
+                        Property="Foreground"
+                        Value="Gray" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 

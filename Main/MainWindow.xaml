@@ -16,9 +16,10 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        
-        
+
+
         <DockPanel
+            Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVis}}"
             Margin="10 5"
             HorizontalAlignment="Right">
             <Button 
@@ -29,7 +30,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
                 Content="Штрафстоянки"/>
-            
+
             <Button 
                 Style="{DynamicResource LinkButton}"
                 FontSize="15"
@@ -38,6 +39,25 @@
                 Visibility="{Binding IsAutorized, Converter={StaticResource BoolToVisInvert}}"
                 HorizontalAlignment="Right"
                 Content="Авторизоваться"/>
+            
+            <Button 
+                Style="{DynamicResource LinkButton}"
+                FontSize="15"
+                Margin="10 0"
+                Command="{Binding ToRegCommand}"
+                VerticalAlignment="Center"
+                Visibility="{Binding IsAutorized, Converter={StaticResource BoolToVisInvert}}"
+                HorizontalAlignment="Right"
+                Content="Зарегистрироваться"/>
+
+            <Button 
+                Style="{DynamicResource LinkButton}"
+                FontSize="15"
+                Command="{Binding LogoutCommand}"
+                VerticalAlignment="Center"
+                Visibility="{Binding IsAutorized, Converter={StaticResource BoolToVis}}"
+                HorizontalAlignment="Right"
+                Content="Выйти"/>
             
             <Button 
                 Margin="15 0"
@@ -53,16 +73,9 @@
             </StackPanel>
             </Button>
             
-            <Button 
-                Style="{DynamicResource LinkButton}"
-                FontSize="15"
-                Command="{Binding LogoutCommand}"
-                VerticalAlignment="Center"
-                Visibility="{Binding IsAutorized, Converter={StaticResource BoolToVis}}"
-                HorizontalAlignment="Right"
-                Content="Выйти"/>
 
         </DockPanel>
+        
         <Frame Grid.Row="1"  NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
 
         <TextBlock

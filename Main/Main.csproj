@@ -114,6 +114,9 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ParkingsPage.xaml.cs">
+      <DependentUpon>ParkingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PhoneConfirmPage.xaml.cs">
       <DependentUpon>PhoneConfirmPage.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,7 @@
     <Compile Include="Services\UpdateHandlerService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ParkingsViewModel.cs" />
     <Compile Include="ViewModels\UserDeclarationsVM.cs" />
     <Compile Include="Components\NotificationItem.cs" />
     <Compile Include="ViewModels\DeclarationViewModel.cs" />
@@ -171,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ParkingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -259,7 +267,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Библиотеки\MVVM_Core\MVVM_Core.csproj">
+    <ProjectReference Include="..\..\Библиотеки\MVVM_Core\MVVM_Core.csproj">
       <Project>{E2DD1F52-CC8D-4BEA-AB48-7959EC923F2B}</Project>
       <Name>MVVM_Core</Name>
     </ProjectReference>

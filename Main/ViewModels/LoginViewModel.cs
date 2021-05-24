@@ -63,6 +63,12 @@ namespace Main.ViewModels
 
         }
 
-        public override int PoolIndex => Rules.Pages.MainPool;
+        protected override void Back(object param)
+        {
+            pageservice.ChangeToLastByPool(Rules.Pages.MainPool);
+            
+        }
+
+        public override int PoolIndex => Rules.Pages.SecPool;
     }
 }
